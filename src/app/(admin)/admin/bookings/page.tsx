@@ -1,7 +1,13 @@
 import type { Metadata } from 'next'
 import { Check, X } from 'lucide-react'
 
-export const metadata: Metadata = { title: 'Admin — Kelola Booking' }
+export const metadata: Metadata = {
+  title: 'Admin — Kelola Booking',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 const bookings = [
   { id: '1', user: 'rizky_p', trip: 'Open Trip Gunung Semeru', date: '10 Mei 2026', status: 'pending' },

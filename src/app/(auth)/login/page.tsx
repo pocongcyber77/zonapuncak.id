@@ -2,7 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 
-export const metadata: Metadata = { title: 'Masuk' }
+export const metadata: Metadata = {
+  title: 'Masuk',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 export default function LoginPage() {
   return (

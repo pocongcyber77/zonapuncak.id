@@ -1,23 +1,65 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Zona Puncak Indonesia — Open Trip Gunung Terpercaya',
-    template: '%s | Zona Puncak Indonesia',
+    default: `${SITE_NAME} — Open Trip Gunung Terpercaya`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    'Platform open trip pendakian gunung terpercaya di Indonesia. Daftar, pilih trip, dan raih puncak bersama kami.',
-  keywords: ['open trip', 'pendakian gunung', 'gunung Indonesia', 'wisata alam', 'zona puncak'],
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
+  applicationName: SITE_NAME,
+  keywords: [
+    'open trip gunung indonesia',
+    'open trip pendakian',
+    'wisata pendakian indonesia',
+    'trip gunung semeru',
+    'trip gunung rinjani',
+    'zona puncak indonesia',
+  ],
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: '/favicon.png',
     apple: '/favicon.png',
   },
+  manifest: '/manifest.webmanifest',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
+    title: `${SITE_NAME} — Open Trip Gunung Terpercaya`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
     type: 'website',
     locale: 'id_ID',
-    siteName: 'Zona Puncak Indonesia',
+    siteName: SITE_NAME,
+    images: [
+      {
+        url: OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} Hero`,
+      },
+    ],
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — Open Trip Gunung Terpercaya`,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  category: 'travel',
 }
 
 export default function RootLayout({

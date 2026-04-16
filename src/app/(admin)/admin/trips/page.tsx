@@ -2,7 +2,13 @@ import type { Metadata } from 'next'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import Button from '@/components/ui/Button'
 
-export const metadata: Metadata = { title: 'Admin — Kelola Trip' }
+export const metadata: Metadata = {
+  title: 'Admin — Kelola Trip',
+  robots: {
+    index: false,
+    follow: false,
+  },
+}
 
 const trips = [
   { id: '1', title: 'Open Trip Gunung Semeru', price: 1250000, quota: 15, date: '10 Mei 2026', difficulty: 'Hard' },

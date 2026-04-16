@@ -6,6 +6,10 @@ import { ArrowLeft, Clock, Hammer } from 'lucide-react'
 export const metadata: Metadata = {
   title: 'Segera Hadir',
   description: 'Halaman ini sedang dalam tahap pengembangan.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default function ComingSoonPage() {
