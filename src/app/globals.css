@@ -1,0 +1,36 @@
+/* Google Fonts — must be first before any other @import */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Design Token ─────────────────────────────────── */
+@theme {
+  /* Fonts */
+  --font-hero:    'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body:    'Inter', 'Helvetica Neue', sans-serif;
+
+  /* Background layers */
+  --color-bg-base:    #0B1D1A;
+  --color-bg-section: #111111;
+  --color-bg-card:    #1A1A1A;
+
+  /* Text */
+  --color-text-primary:   #FFFFFF;
+  --color-text-secondary: #D1D5DB;
+  --color-text-muted:     #9CA3AF;
+
+  /* Accent */
+  --color-forest:  #2F5D50;
+  --color-gold:    #D6A75F;
+}
+
+/* ─── Base ─────────────────────────────────────────── */
+*   { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
