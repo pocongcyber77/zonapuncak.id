@@ -17,8 +17,8 @@ interface HeroProps {
 
 export default function Hero({
   title = 'Jelajahi Puncak\nEkstrem Indonesia',
-  description = 'Dipandu guide bersertifikat, diorganisir profesional — raih puncak impianmu dengan aman dan berkesan.',
-  cta = { label: 'Gabung Trip', href: '/trips' },
+  description = 'Dipandu guide bersertifikat, diorganisir secara profesional demi meraih puncak impianmu dengan aman dan berkesan.',
+  cta = { label: 'Gabung Trip', href: '/coming-soon' },
   imageSrc = '/hero.jpg',
 }: HeroProps) {
   return (
