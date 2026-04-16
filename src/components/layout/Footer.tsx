@@ -20,7 +20,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm text-stone-400 leading-relaxed max-w-xs">
-              Platform open trip pendakian gunung terpercaya di Indonesia. Bersama kami, setiap puncak bisa kamu raih dengan aman.
+              Open Trip dan Komunitas pendakian gunung terpercaya di Indonesia. Bersama kami, setiap puncak bisa kamu raih dengan aman.
             </p>
             <div className="flex gap-3 mt-4">
               <a href="#" aria-label="Instagram" className="text-stone-400 hover:text-emerald-400 transition-colors">
