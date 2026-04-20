@@ -166,10 +166,10 @@ export default function Hero({
               </p>
             </div>
 
-            {/* Heading */}
+            {/* Heading — Cormorant Garamond regular */}
             <h1
-              className="text-[clamp(2.6rem,6.5vw,5rem)] leading-none uppercase text-white"
-              style={{ fontFamily: 'var(--font-hero)', letterSpacing: '0.01em' }}
+              className="text-[clamp(2.8rem,6.8vw,5.5rem)] leading-[1.05] text-white"
+              style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
             >
               {title.split('\n').map((line, i, arr) => (
                 <span key={i}>
@@ -179,10 +179,10 @@ export default function Hero({
               ))}
             </h1>
 
-            {/* Description — Cormorant Garamond italic for elegant contrast */}
+            {/* Description — Bebas Neue */}
             <p
-              className="text-lg xs:text-xl leading-relaxed max-w-[480px] text-text-secondary italic"
-              style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+              className="text-base xs:text-lg leading-relaxed max-w-[480px] text-text-muted tracking-wide"
+              style={{ fontFamily: 'var(--font-hero)', fontWeight: 400 }}
             >
               {description}
             </p>
