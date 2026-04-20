@@ -179,8 +179,11 @@ export default function Hero({
               ))}
             </h1>
 
-            {/* Description */}
-            <p className="text-base xs:text-lg leading-relaxed max-w-[480px] text-text-secondary">
+            {/* Description — Cormorant Garamond italic for elegant contrast */}
+            <p
+              className="text-lg xs:text-xl leading-relaxed max-w-[480px] text-text-secondary italic"
+              style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+            >
               {description}
             </p>
 

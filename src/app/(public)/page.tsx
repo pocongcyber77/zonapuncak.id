@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Shield, Compass, Users, Star, MapPin } from 'lucide-react'
 import Hero from '@/components/ui/Hero'
@@ -9,6 +10,11 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
   alternates: { canonical: '/' },
 }
+
+/* ─── Design constants ───────────────────────────── */
+const BASE  = '#0B0B0B'
+const SEC   = '#111111'
+const DARK  = '#07120F'
 
 /* ─── Data ───────────────────────────────────────── */
 
@@ -25,36 +31,36 @@ const destinations = [
     location: 'Jawa Timur',
     elevation: '3.344 mdpl',
     tag: 'Ekstrem',
-    gradient: 'linear-gradient(160deg, #1a3a2f 0%, #0d1f1a 50%, #050e0c 100%)',
+    img: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=75&auto=format&fit=crop',
   },
   {
     name: 'Gunung Semeru',
     location: 'Jawa Timur',
     elevation: '3.676 mdpl',
     tag: 'Hard',
-    gradient: 'linear-gradient(160deg, #1e2a1a 0%, #111a0e 50%, #080d06 100%)',
+    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75&auto=format&fit=crop',
   },
   {
     name: 'Gunung Rinjani',
     location: 'Lombok, NTB',
     elevation: '3.726 mdpl',
     tag: 'Hard',
-    gradient: 'linear-gradient(160deg, #1a2535 0%, #0e1520 50%, #060a10 100%)',
+    img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&q=75&auto=format&fit=crop',
   },
   {
     name: 'Gunung Prau',
     location: 'Jawa Tengah',
     elevation: '2.565 mdpl',
     tag: 'Easy',
-    gradient: 'linear-gradient(160deg, #252018 0%, #16130e 50%, #080705 100%)',
+    img: 'https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&q=75&auto=format&fit=crop',
   },
 ]
 
 const tagBadge: Record<string, string> = {
   Ekstrem: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
-  Hard:    'bg-red-500/20    text-red-300    border-red-500/30',
+  Hard:    'bg-red-500/20 text-red-300 border-red-500/30',
   Medium:  'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-  Easy:    'bg-green-500/20  text-green-300  border-green-500/30',
+  Easy:    'bg-green-500/20 text-green-300 border-green-500/30',
 }
 
 const reasons = [
@@ -70,35 +76,35 @@ const reasons = [
   },
   {
     icon: Users,
-    title: 'Satu Partner, Satu Tujuan',
+    title: 'Satu Partner',
     body: 'Dari persiapan hingga turun gunung — kami ada di setiap langkahmu.',
   },
 ]
 
-const testimonials = [
-  {
-    name: 'Rizky P.',
-    trip: 'Gunung Raung',
-    star: 5,
-    text: 'Guide pro banget. Summit berasa nggak ngeri sama sekali.',
-  },
-  {
-    name: 'Sari D.',
-    trip: 'Gunung Rinjani',
-    star: 5,
-    text: 'Semua diurus rapi. Tinggal nikmati pemandangannya.',
-  },
-  {
-    name: 'Andi F.',
-    trip: 'Gunung Semeru',
-    star: 5,
-    text: 'Sunrise dari Mahameru bareng tim ZP — tak terlupakan.',
-  },
+const splitImgs = {
+  tall:   'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=500&q=75&auto=format&fit=crop',
+  shortA: 'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=400&q=75&auto=format&fit=crop',
+  shortB: 'https://images.unsplash.com/photo-1519659528534-7fd733a832a0?w=400&q=75&auto=format&fit=crop',
+}
+
+const collageImgs = [
+  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=70&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1476611338391-6f395a0dd82e?w=300&q=70&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=300&q=70&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=300&q=70&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1570641963303-92ce4845ed4c?w=300&q=70&auto=format&fit=crop',
 ]
 
-/* ─── Helpers ────────────────────────────────────── */
+const testimonials = [
+  { name: 'Rizky P.',  trip: 'Gunung Raung',   star: 5, text: 'Guide pro banget. Summit berasa nggak ngeri sama sekali.' },
+  { name: 'Sari D.',   trip: 'Gunung Rinjani',  star: 5, text: 'Semua diurus rapi. Tinggal nikmati pemandangannya.' },
+  { name: 'Andi F.',   trip: 'Gunung Semeru',   star: 5, text: 'Sunrise dari Mahameru bareng tim ZP — tak terlupakan.' },
+]
 
-function EyebrowLabel({ children }: { children: React.ReactNode }) {
+/* ─── Shared helpers ─────────────────────────────── */
+
+/** Eyebrow label — gold, tracked uppercase */
+function Label({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-gold mb-3">
       {children}
@@ -106,8 +112,8 @@ function EyebrowLabel({ children }: { children: React.ReactNode }) {
   )
 }
 
-/* heading yang elegan — Cormorant Garamond */
-function SerifHeading({
+/** Section heading — Cormorant Garamond regular (not bold) */
+function H2({
   children,
   className = '',
 }: {
@@ -117,10 +123,25 @@ function SerifHeading({
   return (
     <h2
       className={`leading-[1.1] text-white ${className}`}
-      style={{ fontFamily: 'var(--font-serif)', fontWeight: 600 }}
+      style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
     >
       {children}
     </h2>
+  )
+}
+
+/** Gradient divider — blends two adjacent section colours */
+function Fade({ from, to, h = 80 }: { from: string; to: string; h?: number }) {
+  return (
+    <div
+      aria-hidden
+      style={{
+        height: h,
+        background: `linear-gradient(to bottom, ${from}, ${to})`,
+        marginTop: -1,   // prevent 1-px gap on some screens
+        marginBottom: -1,
+      }}
+    />
   )
 }
 
@@ -149,9 +170,12 @@ export default function HomePage() {
       {/* ══ HERO ══════════════════════════════════════════ */}
       <Hero />
 
+      {/* Hero → Stats fade (base → section) */}
+      <Fade from={BASE} to={SEC} h={64} />
+
       {/* ══ STATS STRIP ══════════════════════════════════ */}
-      <section className="bg-bg-section border-b border-border">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-12">
+      <section style={{ backgroundColor: SEC }}>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-10">
           <dl className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-col gap-1">
@@ -168,18 +192,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ DESTINATIONS ═════════════════════════════════
-          Layout ref: centered heading + 4-col photo cards
-          with overlay label at bottom (like the reference)
-      ══════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-bg-base">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
+      {/* Stats → Destinations fade (section → base) */}
+      <Fade from={SEC} to={BASE} h={80} />
+
+      {/* ══ DESTINATIONS ══════════════════════════════════ */}
+      <section style={{ backgroundColor: BASE }}>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
+
           {/* Centered heading */}
           <div className="text-center mb-14">
-            <EyebrowLabel>Destinasi Pilihan</EyebrowLabel>
-            <SerifHeading className="text-4xl sm:text-5xl lg:text-6xl">
+            <Label>Destinasi Pilihan</Label>
+            <H2 className="text-4xl sm:text-5xl lg:text-6xl">
               Jelajahi Puncak Indonesia
-            </SerifHeading>
+            </H2>
             <p className="mt-4 text-sm text-text-muted max-w-md mx-auto leading-relaxed">
               Kami kurasi gunung-gunung terbaik — dari yang mudah hingga yang hanya untuk jiwa petualang sejati.
             </p>
@@ -192,41 +217,39 @@ export default function HomePage() {
                 key={d.name}
                 href="/coming-soon"
                 className="group relative h-72 rounded-2xl overflow-hidden flex flex-col justify-end"
-                style={{ background: d.gradient }}
               >
-                {/* Subtle mountain silhouette lines — decorative SVG */}
-                <svg
-                  className="absolute inset-0 w-full h-full opacity-10"
-                  viewBox="0 0 200 200"
-                  preserveAspectRatio="xMidYMid slice"
-                  aria-hidden="true"
-                >
-                  <polygon points="0,200 80,60 130,120 160,80 200,200" fill="currentColor" className="text-forest" />
-                  <polygon points="0,200 40,100 90,160 130,90 200,200" fill="currentColor" className="text-white" opacity="0.06" />
-                </svg>
-
-                {/* Hover shine */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  style={{ background: 'linear-gradient(135deg, rgba(47,93,80,0.25) 0%, transparent 60%)' }}
+                {/* Photo */}
+                <Image
+                  src={d.img}
+                  alt={d.name}
+                  fill
+                  sizes="(max-width:768px) 50vw, 25vw"
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
 
-                {/* Bottom overlay */}
-                <div className="relative z-10 p-5" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)' }}>
-                  {/* Tag */}
-                  <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border mb-2 ${tagBadge[d.tag]}`}>
+                {/* Gradient overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.30) 50%, transparent 100%)',
+                  }}
+                />
+
+                {/* Content */}
+                <div className="relative z-10 p-5">
+                  <span
+                    className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border mb-2 ${tagBadge[d.tag]}`}
+                  >
                     {d.tag}
                   </span>
-
-                  {/* Name */}
                   <p
-                    className="text-lg text-white leading-tight group-hover:text-gold transition-colors duration-200"
+                    className="text-lg text-white leading-tight transition-colors duration-200 group-hover:text-gold"
                     style={{ fontFamily: 'var(--font-heading)', fontWeight: 600 }}
                   >
                     {d.name}
                   </p>
-
-                  {/* Location + elevation */}
-                  <div className="mt-1.5 flex items-center justify-between text-[11px] text-text-muted">
+                  <div className="mt-1.5 flex items-center justify-between text-[11px] text-white/60">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-3 h-3" />
                       {d.location}
@@ -238,7 +261,6 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* View all */}
           <div className="mt-10 text-center">
             <Link
               href="/coming-soon"
@@ -251,32 +273,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ WHY CHOOSE US ════════════════════════════════
-          Layout ref: centered title, 3-col icons + text
-      ══════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-bg-section">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
-          {/* Centered heading */}
+      {/* Destinations → Why Us fade (base → section) */}
+      <Fade from={BASE} to={SEC} h={80} />
+
+      {/* ══ WHY CHOOSE US ════════════════════════════════ */}
+      <section style={{ backgroundColor: SEC }}>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
+
           <div className="text-center mb-16">
-            <EyebrowLabel>Kenapa Kami</EyebrowLabel>
-            <SerifHeading className="text-4xl sm:text-5xl">
+            <Label>Kenapa Kami</Label>
+            <H2 className="text-4xl sm:text-5xl">
               Alasan Memilih Zona Puncak
-            </SerifHeading>
+            </H2>
           </div>
 
-          {/* 3 columns */}
-          <div className="grid sm:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid sm:grid-cols-3 gap-8 lg:gap-14">
             {reasons.map((r) => (
               <div key={r.title} className="flex flex-col items-center text-center gap-5">
-                {/* Icon circle */}
                 <div className="w-16 h-16 rounded-full bg-forest flex items-center justify-center shrink-0">
                   <r.icon className="w-7 h-7 text-white" />
                 </div>
-
-                {/* Gold underline */}
                 <div className="w-8 h-px bg-gold" />
-
-                {/* Text */}
                 <div>
                   <p
                     className="text-base font-semibold text-white mb-2 uppercase tracking-wide"
@@ -292,51 +309,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ SPLIT FEATURE ════════════════════════════════
-          Layout ref: 2 stacked photos left | text + CTA right
-      ══════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-bg-base overflow-hidden">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
+      {/* Why Us → Split fade (section → base) */}
+      <Fade from={SEC} to={BASE} h={80} />
+
+      {/* ══ SPLIT FEATURE ════════════════════════════════ */}
+      <section style={{ backgroundColor: BASE }}>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — 2 stacked image cards */}
+            {/* Left — 2-col image grid */}
             <div className="grid grid-cols-2 gap-3">
-              {/* Tall card */}
-              <div
-                className="col-span-1 row-span-2 rounded-2xl min-h-[320px] lg:min-h-[420px]"
-                style={{ background: 'linear-gradient(170deg, #1a3a2f 0%, #0a1a14 100%)' }}
-              >
-                <svg className="w-full h-full opacity-[0.12]" viewBox="0 0 100 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <polygon points="0,300 45,80 70,180 90,120 100,300" fill="white" />
-                </svg>
+              {/* Tall left card */}
+              <div className="relative col-span-1 row-span-2 rounded-2xl overflow-hidden min-h-[320px] lg:min-h-[420px]">
+                <Image
+                  src={splitImgs.tall}
+                  alt="Pemandangan gunung"
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
               </div>
-              {/* Two shorter cards stacked */}
-              <div
-                className="rounded-2xl min-h-[150px] lg:min-h-[200px]"
-                style={{ background: 'linear-gradient(150deg, #111a0d 0%, #060a05 100%)' }}
-              >
-                <svg className="w-full h-full opacity-[0.12]" viewBox="0 0 100 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <polygon points="0,150 55,30 100,150" fill="white" />
-                </svg>
+              {/* Short top-right */}
+              <div className="relative rounded-2xl overflow-hidden min-h-[150px] lg:min-h-[200px]">
+                <Image
+                  src={splitImgs.shortA}
+                  alt="Pendakian gunung"
+                  fill
+                  sizes="15vw"
+                  className="object-cover"
+                />
               </div>
-              <div
-                className="rounded-2xl min-h-[150px] lg:min-h-[200px]"
-                style={{ background: 'linear-gradient(150deg, #1a2535 0%, #080e18 100%)' }}
-              >
-                <svg className="w-full h-full opacity-[0.12]" viewBox="0 0 100 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                  <polygon points="0,150 40,50 70,100 100,150" fill="white" />
-                </svg>
+              {/* Short bottom-right */}
+              <div className="relative rounded-2xl overflow-hidden min-h-[150px] lg:min-h-[200px]">
+                <Image
+                  src={splitImgs.shortB}
+                  alt="Alam pegunungan"
+                  fill
+                  sizes="15vw"
+                  className="object-cover"
+                />
               </div>
             </div>
 
             {/* Right — copy */}
             <div className="flex flex-col gap-6">
-              <EyebrowLabel>Filosofi Kami</EyebrowLabel>
+              <Label>Filosofi Kami</Label>
 
-              <SerifHeading className="text-4xl sm:text-5xl lg:text-[3.25rem]">
+              <H2 className="text-4xl sm:text-5xl lg:text-[3.25rem]">
                 Setiap Puncak<br />
                 <em>Punya Ceritanya</em>
-              </SerifHeading>
+              </H2>
 
               <p className="text-text-secondary text-base leading-relaxed max-w-sm">
                 Bagi kami mendaki bukan sekadar olahraga — ini tentang bertemu dirimu sendiri di ketinggian. Kami hadir memastikan perjalanan itu aman, bermakna, dan tak terlupakan.
@@ -360,54 +382,38 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ══ EXPLORE SECTION ══════════════════════════════
-          Layout ref: full-width dark section, text left,
-          image/map collage right
-      ══════════════════════════════════════════════════ */}
-      <section
-        className="py-24 lg:py-32 overflow-hidden relative"
-        style={{ background: 'linear-gradient(135deg, #071410 0%, #0B1D1A 50%, #0d1a16 100%)' }}
-      >
-        {/* Background texture lines */}
-        <svg
-          className="absolute inset-0 w-full h-full opacity-[0.04] pointer-events-none"
-          viewBox="0 0 1200 500"
-          preserveAspectRatio="xMidYMid slice"
-          aria-hidden="true"
-        >
-          <polygon points="600,0 900,500 300,500" fill="white" />
-          <polygon points="900,0 1200,500 600,500" fill="white" opacity="0.5" />
-        </svg>
+      {/* Split → Explore fade (base → deep dark) */}
+      <Fade from={BASE} to={DARK} h={96} />
 
-        <div className="relative max-w-[1200px] mx-auto px-6 lg:px-12">
+      {/* ══ EXPLORE ══════════════════════════════════════ */}
+      <section style={{ backgroundColor: DARK }}>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
 
             {/* Left — text */}
             <div className="flex flex-col gap-6">
-              <EyebrowLabel>Mulai Petualangan</EyebrowLabel>
+              <Label>Mulai Petualangan</Label>
 
-              <SerifHeading className="text-4xl sm:text-5xl lg:text-6xl">
+              <H2 className="text-4xl sm:text-5xl lg:text-6xl">
                 Jelajahi Alam<br />
                 <em>Bersama Kami</em>
-              </SerifHeading>
+              </H2>
 
               <p className="text-text-secondary text-base leading-relaxed max-w-sm">
                 Dari Jawa hingga Lombok — ribuan kilometer jalur gunung menanti. Bergabunglah dan jadilah bagian dari komunitas pendaki Indonesia.
               </p>
 
               <div className="flex flex-col gap-3 max-w-xs">
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0" />
-                  <p className="text-sm text-text-muted">Perencanaan perjalanan profesional dari A sampai Z</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0" />
-                  <p className="text-sm text-text-muted">Guide lokal berpengalaman di setiap gunung</p>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0" />
-                  <p className="text-sm text-text-muted">Komunitas alumni pendaki yang aktif dan suportif</p>
-                </div>
+                {[
+                  'Perencanaan perjalanan profesional dari A sampai Z',
+                  'Guide lokal berpengalaman di setiap gunung',
+                  'Komunitas alumni pendaki yang aktif dan suportif',
+                ].map((item) => (
+                  <div key={item} className="flex items-start gap-3">
+                    <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0" />
+                    <p className="text-sm text-text-muted">{item}</p>
+                  </div>
+                ))}
               </div>
 
               <Link
@@ -419,49 +425,65 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Right — image collage grid */}
-            <div className="grid grid-cols-3 grid-rows-3 gap-2.5 h-[380px] lg:h-[460px]">
-              {/* Large top-left */}
-              <div
-                className="col-span-2 row-span-2 rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #2F5D50 0%, #1a3a2f 40%, #0d1f1a 100%)' }}
-              />
+            {/* Right — photo collage */}
+            <div className="grid grid-cols-3 grid-rows-3 gap-2 h-[380px] lg:h-[460px]">
+              {/* Large top-left (spans 2×2) */}
+              <div className="relative col-span-2 row-span-2 rounded-xl overflow-hidden">
+                <Image
+                  src={collageImgs[0]}
+                  alt="Alam pegunungan Indonesia"
+                  fill
+                  sizes="25vw"
+                  className="object-cover"
+                />
+              </div>
               {/* Top-right */}
-              <div
-                className="col-span-1 row-span-1 rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #1e2a1a 0%, #0d160a 100%)' }}
-              />
+              <div className="relative col-span-1 row-span-1 rounded-xl overflow-hidden">
+                <Image
+                  src={collageImgs[1]}
+                  alt="Pemandangan gunung"
+                  fill
+                  sizes="10vw"
+                  className="object-cover"
+                />
+              </div>
               {/* Mid-right */}
-              <div
-                className="col-span-1 row-span-1 rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #1a2535 0%, #0a1320 100%)' }}
-              />
+              <div className="relative col-span-1 row-span-1 rounded-xl overflow-hidden">
+                <Image
+                  src={collageImgs[2]}
+                  alt="Pendakian"
+                  fill
+                  sizes="10vw"
+                  className="object-cover"
+                />
+              </div>
               {/* Bottom row × 3 */}
-              <div
-                className="col-span-1 row-span-1 rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #252018 0%, #12100b 100%)' }}
-              />
-              <div
-                className="col-span-1 row-span-1 rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #1a3a2f 0%, #0d1f1a 100%)' }}
-              />
-              <div
-                className="col-span-1 row-span-1 rounded-xl"
-                style={{ background: 'linear-gradient(135deg, #1e1a30 0%, #0d0b18 100%)' }}
-              />
+              {collageImgs.slice(2, 5).map((src, i) => (
+                <div key={i} className="relative col-span-1 row-span-1 rounded-xl overflow-hidden">
+                  <Image
+                    src={src}
+                    alt="Gunung Indonesia"
+                    fill
+                    sizes="10vw"
+                    className="object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Explore → Testimonials fade (deep dark → base) */}
+      <Fade from={DARK} to={BASE} h={80} />
+
       {/* ══ TESTIMONIALS ═════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-bg-base">
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
+      <section style={{ backgroundColor: BASE }}>
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
+
           <div className="text-center mb-14">
-            <EyebrowLabel>Kata Mereka</EyebrowLabel>
-            <SerifHeading className="text-4xl sm:text-5xl">
-              Suara Alumni Pendaki
-            </SerifHeading>
+            <Label>Kata Mereka</Label>
+            <H2 className="text-4xl sm:text-5xl">Suara Alumni Pendaki</H2>
           </div>
 
           <div className="grid sm:grid-cols-3 gap-5">
@@ -470,22 +492,17 @@ export default function HomePage() {
                 key={t.name}
                 className="p-7 rounded-2xl border border-border bg-bg-card flex flex-col gap-4"
               >
-                {/* Stars */}
                 <div className="flex gap-1">
                   {Array.from({ length: t.star }).map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-gold text-gold" />
                   ))}
                 </div>
-
-                {/* Quote */}
                 <p
-                  className="text-lg leading-snug flex-1 text-white/80 italic"
-                  style={{ fontFamily: 'var(--font-serif)' }}
+                  className="text-xl leading-snug flex-1 text-white/80 italic"
+                  style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
                 >
                   &ldquo;{t.text}&rdquo;
                 </p>
-
-                {/* Author */}
                 <div className="border-t border-border pt-4">
                   <p className="text-sm font-semibold text-white">{t.name}</p>
                   <p className="text-xs mt-0.5 text-gold">{t.trip}</p>
@@ -496,20 +513,22 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Testimonials → CTA fade (base → forest) */}
+      <Fade from={BASE} to="#1a3a2f" h={96} />
+
       {/* ══ CTA BOTTOM ════════════════════════════════════ */}
       <section
-        className="py-24 lg:py-32"
         style={{
-          background: 'linear-gradient(135deg, var(--color-forest) 0%, #0d1a14 55%)',
+          background: 'linear-gradient(135deg, #2F5D50 0%, #0d1a14 60%)',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
+        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
           <div>
-            <EyebrowLabel>Siap Mendaki?</EyebrowLabel>
-            <SerifHeading className="text-5xl sm:text-6xl lg:text-7xl">
+            <Label>Siap Mendaki?</Label>
+            <H2 className="text-5xl sm:text-6xl lg:text-7xl">
               Raih Puncak<br />
               <em>Impianmu</em>
-            </SerifHeading>
+            </H2>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
