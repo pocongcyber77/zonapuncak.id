@@ -40,7 +40,7 @@ interface HeroProps {
 export default function Hero({
   title = 'Jelajahi Puncak\nEkstrem Indonesia',
   description = 'Dipandu guide bersertifikat, diorganisir secara profesional demi meraih puncak impianmu dengan aman dan berkesan.',
-  cta = { label: 'Gabung Trip', href: '/coming-soon' },
+  cta = { label: 'Gabung Trip', href: '/trip' },
 }: HeroProps) {
   const [current, setCurrent] = useState(0)
   const zoomRefs = useRef<(HTMLDivElement | null)[]>([])

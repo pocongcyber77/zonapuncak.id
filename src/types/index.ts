@@ -32,6 +32,47 @@ export interface Trip {
   mountain?: Mountain
 }
 
+/* ── Jadwal / Kalender ─────────────────────────────── */
+export type AgendaType = 'briefing' | 'departure' | 'summit' | 'descent' | 'finish' | 'info'
+
+export interface AgendaItem {
+  id: string
+  date: string           // YYYY-MM-DD
+  time?: string          // HH:mm (opsional)
+  type: AgendaType
+  title: string
+  body?: string
+}
+
+export interface TripBatch {
+  id: string
+  label: string          // misal "Batch Mei 2026"
+  start_date: string     // YYYY-MM-DD
+  end_date: string
+  quota: number
+  filled: number
+  price: number
+  status: 'open' | 'almost_full' | 'full' | 'closed'
+  agendas: AgendaItem[]
+}
+
+export interface TripPage {
+  slug: string
+  name: string           // "Gunung Raung"
+  location: string
+  elevation: number
+  difficulty: Difficulty
+  duration_days: number
+  cover: string          // path public
+  price_from: number
+  quota_total: number
+  meeting_point: string
+  include: string[]
+  exclude: string[]
+  requirements: string[]
+  batches: TripBatch[]
+}
+
 export interface Booking {
   id: string
   user_id: string

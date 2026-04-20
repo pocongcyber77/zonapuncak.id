@@ -9,10 +9,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       /* Navbar top-level */
-      { source: '/tentang',   destination: COMING_SOON, permanent: false },
-      { source: '/jadwal',    destination: COMING_SOON, permanent: false },
-      { source: '/gallery',   destination: COMING_SOON, permanent: false },
-      { source: '/trip',      destination: COMING_SOON, permanent: false },
+      // '/tentang', '/jadwal', '/trip', '/gallery' sudah live
       { source: '/community', destination: COMING_SOON, permanent: false },
       { source: '/community/:path*', destination: COMING_SOON, permanent: false },
       /* Download & semua sub-route-nya */

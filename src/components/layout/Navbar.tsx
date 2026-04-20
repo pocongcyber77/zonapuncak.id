@@ -5,12 +5,32 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { clsx } from 'clsx'
-import { Menu, X, ChevronDown, Map, BookOpen, Info, Navigation, Award } from 'lucide-react'
+import { Menu, X, ChevronDown, Map, BookOpen, Info, Navigation, Award, Mountain, CalendarDays } from 'lucide-react'
 
 /* ── Nav link groups ─────────────────────────────── */
 const leftLinks = [
   { href: '/tentang', label: 'Tentang' },
-  { href: '/jadwal', label: 'Jadwal' },
+]
+
+const jadwalItems = [
+  {
+    href: '/jadwal/raung',
+    label: 'Gunung Raung',
+    icon: Mountain,
+    desc: '3.344 mdpl · Via Kalibaru · Grade V',
+  },
+  {
+    href: '/jadwal/argopuro',
+    label: 'Gunung Argopuro',
+    icon: Mountain,
+    desc: '3.088 mdpl · Lintas Baderan - Bremi · Grade IV',
+  },
+  {
+    href: '/jadwal',
+    label: 'Lihat Semua Jadwal',
+    icon: CalendarDays,
+    desc: 'Cek seluruh trip yang tersedia',
+  },
 ]
 
 const downloadItems = [
@@ -59,6 +79,81 @@ const SocialIcons = () => (
     </a>
   </div>
 )
+
+/* ── Jadwal dropdown ─────────────────────────────── */
+function JadwalDropdown({ pathname }: { pathname: string }) {
+  const [open, setOpen] = useState(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const handleMouseEnter = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    setOpen(true)
+  }
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => setOpen(false), 120)
+  }
+
+  const isActive = pathname.startsWith('/jadwal')
+
+  return (
+    <li
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <button
+        className={clsx(
+          'flex items-center gap-1 px-3 py-1.5 text-sm tracking-wide rounded-md transition-colors duration-200',
+          isActive ? 'text-white' : 'text-white/55 hover:text-white'
+        )}
+      >
+        Jadwal
+        <ChevronDown
+          className={clsx('w-3.5 h-3.5 transition-transform duration-200', open && 'rotate-180')}
+        />
+      </button>
+
+      {/* Dropdown panel */}
+      <div
+        className={clsx(
+          'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-60',
+          'bg-bg-card/95 backdrop-blur-md border border-border rounded-xl overflow-hidden shadow-2xl',
+          'transition-all duration-200 origin-top',
+          open ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'
+        )}
+      >
+        <div className="h-px bg-linear-to-r from-transparent via-forest to-transparent" />
+
+        <ul className="py-2">
+          {jadwalItems.map((item, idx) => (
+            <li key={item.href}>
+              {/* Divider sebelum "Lihat Semua" */}
+              {idx === jadwalItems.length - 1 && (
+                <div className="mx-4 my-1.5 h-px bg-border" />
+              )}
+              <Link
+                href={item.href}
+                className="flex items-start gap-3 px-4 py-3 hover:bg-white/5 transition-colors duration-150 group"
+              >
+                <div className="mt-0.5 w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-forest/30 transition-colors duration-150">
+                  <item.icon className="w-3.5 h-3.5 text-white/50 group-hover:text-white transition-colors duration-150" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white/85 group-hover:text-white transition-colors duration-150 leading-none mb-1">
+                    {item.label}
+                  </p>
+                  <p className="text-xs text-white/35 group-hover:text-white/55 transition-colors duration-150 leading-snug">
+                    {item.desc}
+                  </p>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </li>
+  )
+}
 
 /* ── Download dropdown ───────────────────────────── */
 function DownloadDropdown({ pathname }: { pathname: string }) {
@@ -192,6 +287,9 @@ export default function Navbar({ transparent = false }: NavbarProps) {
               </li>
             ))}
 
+            {/* Jadwal dropdown */}
+            <JadwalDropdown pathname={pathname} />
+
             {/* Komunitas — highlight button di tengah */}
             <li className="mx-1">
               <Link
@@ -280,6 +378,24 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 {link.label}
               </Link>
             ))}
+
+            {/* Jadwal submenu — selalu expand di mobile */}
+            <div className="px-2 pt-1 pb-2">
+              <p className="text-xs text-white/30 uppercase tracking-widest mb-1.5 px-0.5">Jadwal Trip</p>
+              <div className="flex flex-col gap-0.5">
+                {jadwalItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center gap-2.5 px-2 py-2 rounded-lg text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors"
+                  >
+                    <item.icon className="w-3.5 h-3.5 shrink-0" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
 
             {/* Download submenu — selalu expand di mobile */}
             <div className="px-2 pt-1 pb-2">
