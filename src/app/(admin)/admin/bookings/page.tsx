@@ -16,47 +16,47 @@ const bookings = [
 ]
 
 const statusConfig = {
-  pending:  { label: 'Menunggu', color: 'bg-yellow-100 text-yellow-700' },
-  approved: { label: 'Dikonfirmasi', color: 'bg-green-100 text-green-700' },
-  rejected: { label: 'Ditolak', color: 'bg-red-100 text-red-700' },
+  pending:  { label: 'Menunggu', classes: 'bg-warning/10 text-warning' },
+  approved: { label: 'Dikonfirmasi', classes: 'bg-success/10 text-success' },
+  rejected: { label: 'Ditolak', classes: 'bg-error/10 text-error' },
 }
 
 export default function AdminBookingsPage() {
   return (
     <div>
-      <h1 className="text-2xl font-bold text-stone-900 mb-6">Kelola Booking</h1>
+      <h1 className="text-2xl font-bold text-text-primary mb-6">Kelola Booking</h1>
 
-      <div className="bg-white rounded-xl border border-stone-200 overflow-hidden">
+      <div className="bg-bg-card border border-border rounded-xl overflow-hidden">
         <table className="w-full text-sm">
-          <thead className="bg-stone-50 border-b border-stone-200">
+          <thead className="bg-bg-section border-b border-border">
             <tr>
-              <th className="text-left px-4 py-3 font-semibold text-stone-700">User</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-700">Trip</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-700">Tanggal</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-700">Status</th>
-              <th className="text-left px-4 py-3 font-semibold text-stone-700">Aksi</th>
+              <th className="text-left px-4 py-3 font-semibold text-text-secondary">User</th>
+              <th className="text-left px-4 py-3 font-semibold text-text-secondary">Trip</th>
+              <th className="text-left px-4 py-3 font-semibold text-text-secondary">Tanggal</th>
+              <th className="text-left px-4 py-3 font-semibold text-text-secondary">Status</th>
+              <th className="text-left px-4 py-3 font-semibold text-text-secondary">Aksi</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-stone-100">
+          <tbody className="divide-y divide-border">
             {bookings.map((booking) => {
               const config = statusConfig[booking.status as keyof typeof statusConfig]
               return (
-                <tr key={booking.id} className="hover:bg-stone-50 transition-colors">
-                  <td className="px-4 py-3 font-medium text-stone-900">@{booking.user}</td>
-                  <td className="px-4 py-3 text-stone-600">{booking.trip}</td>
-                  <td className="px-4 py-3 text-stone-500">{booking.date}</td>
+                <tr key={booking.id} className="hover:bg-white/3 transition-colors duration-150">
+                  <td className="px-4 py-3 font-medium text-text-primary">@{booking.user}</td>
+                  <td className="px-4 py-3 text-text-secondary">{booking.trip}</td>
+                  <td className="px-4 py-3 text-text-muted">{booking.date}</td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${config.color}`}>
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${config.classes}`}>
                       {config.label}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     {booking.status === 'pending' && (
                       <div className="flex items-center gap-2">
-                        <button className="p-1.5 rounded-lg text-stone-400 hover:text-green-600 hover:bg-green-50 transition-colors">
+                        <button className="p-1.5 rounded-lg text-text-muted hover:text-success hover:bg-success/10 transition-colors duration-150">
                           <Check className="w-4 h-4" />
                         </button>
-                        <button className="p-1.5 rounded-lg text-stone-400 hover:text-red-600 hover:bg-red-50 transition-colors">
+                        <button className="p-1.5 rounded-lg text-text-muted hover:text-error hover:bg-error/10 transition-colors duration-150">
                           <X className="w-4 h-4" />
                         </button>
                       </div>

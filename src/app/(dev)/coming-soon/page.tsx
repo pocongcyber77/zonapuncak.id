@@ -16,7 +16,7 @@ export default function ComingSoonPage() {
   return (
     <div className="relative min-h-screen bg-bg-base flex flex-col items-center justify-center overflow-hidden px-6">
 
-      {/* Background subtle gradient */}
+      {/* Background radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -26,9 +26,13 @@ export default function ComingSoonPage() {
         aria-hidden
       />
 
-      {/* Top noise texture layer */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'1\'/%3E%3C/svg%3E")', backgroundRepeat: 'repeat' }}
+      {/* Noise texture */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noise\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noise)\' opacity=\'1\'/%3E%3C/svg%3E")',
+          backgroundRepeat: 'repeat',
+        }}
         aria-hidden
       />
 
@@ -46,9 +50,9 @@ export default function ComingSoonPage() {
         </Link>
 
         {/* Icon badge */}
-        <div className="flex items-center gap-2 bg-white/5 border border-white/8 rounded-full px-4 py-2">
+        <div className="flex items-center gap-2 bg-white/5 border border-border rounded-full px-4 py-2">
           <Hammer className="w-3.5 h-3.5 text-gold animate-pulse" />
-          <span className="text-xs font-medium tracking-widest uppercase text-white/50">
+          <span className="text-xs font-medium tracking-widest uppercase text-text-muted">
             Dalam Pengembangan
           </span>
         </div>
@@ -56,44 +60,44 @@ export default function ComingSoonPage() {
         {/* Heading */}
         <div className="flex flex-col gap-3">
           <h1
-            className="text-5xl xs:text-6xl uppercase text-white leading-none"
+            className="text-5xl xs:text-6xl uppercase text-text-primary leading-none"
             style={{ fontFamily: 'var(--font-hero)' }}
           >
             Segera
             <br />
-            <span style={{ color: 'var(--color-gold)' }}>Hadir</span>
+            <span className="text-gold">Hadir</span>
           </h1>
-          <p className="text-base xs:text-lg leading-relaxed" style={{ color: '#9CA3AF' }}>
+          <p className="text-base xs:text-lg leading-relaxed text-text-muted">
             Hei, pendaki! Halaman ini masih kami persiapkan dengan sepenuh hati.
             Kami bekerja keras agar setiap fitur hadir sempurna untukmu.
           </p>
         </div>
 
         {/* Divider */}
-        <div className="w-16 h-px bg-white/10" />
+        <div className="w-16 h-px bg-border" />
 
         {/* Info card */}
-        <div className="w-full bg-white/3 border border-white/8 rounded-2xl p-6 flex flex-col gap-4">
+        <div className="w-full bg-bg-card border border-border rounded-2xl p-6 flex flex-col gap-4">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-forest/20 flex items-center justify-center shrink-0 mt-0.5">
+            <div className="w-8 h-8 rounded-lg bg-forest/15 flex items-center justify-center shrink-0 mt-0.5">
               <Clock className="w-4 h-4 text-forest" />
             </div>
             <div className="text-left">
-              <p className="text-sm font-semibold text-white/80 mb-0.5">Apa yang sedang dibangun?</p>
-              <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>
+              <p className="text-sm font-semibold text-text-secondary mb-0.5">Apa yang sedang dibangun?</p>
+              <p className="text-sm leading-relaxed text-text-muted">
                 Fitur ini sedang dalam tahap development aktif. Tim kami
                 sedang memastikan pengalaman terbaik sebelum dirilis.
               </p>
             </div>
           </div>
-          <div className="h-px bg-white/5" />
+          <div className="h-px bg-border" />
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center shrink-0 mt-0.5">
               <span className="text-sm">🏔️</span>
             </div>
             <div className="text-left">
-              <p className="text-sm font-semibold text-white/80 mb-0.5">Sementara itu...</p>
-              <p className="text-sm leading-relaxed" style={{ color: '#6B7280' }}>
+              <p className="text-sm font-semibold text-text-secondary mb-0.5">Sementara itu...</p>
+              <p className="text-sm leading-relaxed text-text-muted">
                 Pantau terus perkembangan kami. Zona Puncak Indonesia
                 akan segera hadir dengan pengalaman pendakian terbaik.
               </p>
@@ -113,7 +117,7 @@ export default function ComingSoonPage() {
       </div>
 
       {/* Footer note */}
-      <p className="absolute bottom-6 text-xs" style={{ color: '#374151' }}>
+      <p className="absolute bottom-6 text-xs text-border">
         © {new Date().getFullYear()} Zona Puncak Indonesia
       </p>
     </div>

@@ -42,6 +42,11 @@ const SocialIcons = () => (
         <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
       </svg>
     </a>
+    <a href="#" aria-label="TikTok" className="text-white/50 hover:text-white transition-colors duration-200">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.01 2.96-.02 4.44-.9-.15-1.89-.09-2.69.43-.97.63-1.52 1.79-1.42 2.98.09 1.28 1.13 2.42 2.39 2.71.87.19 1.79.1 2.59-.29 1.01-.53 1.65-1.64 1.67-2.77.01-4.91-.01-9.83.02-14.74z"/>
+      </svg>
+    </a>
     <a href="#" aria-label="X" className="text-white/50 hover:text-white transition-colors duration-200">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.26 5.632 5.904-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
@@ -93,7 +98,7 @@ function DownloadDropdown({ pathname }: { pathname: string }) {
       <div
         className={clsx(
           'absolute top-full left-1/2 -translate-x-1/2 mt-2 w-56',
-          'bg-bg-base/95 backdrop-blur-md border border-white/8 rounded-xl overflow-hidden shadow-2xl',
+          'bg-bg-card/95 backdrop-blur-md border border-border rounded-xl overflow-hidden shadow-2xl',
           'transition-all duration-200 origin-top',
           open ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'
         )}
@@ -151,7 +156,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       className={clsx(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isSolid
-          ? 'bg-bg-base/95 backdrop-blur-sm border-b border-white/5'
+          ? 'bg-bg-base/95 backdrop-blur-sm border-b border-border'
           : 'bg-transparent border-b border-transparent'
       )}
     >

@@ -23,19 +23,36 @@
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;
   --font-body:    'Inter', 'Helvetica Neue', sans-serif;
 
-  /* Background layers */
-  --color-bg-base:    #0B1D1A;
+  /* ── 1. BASE — Background layers ─────────────────── */
+  --color-bg-primary: #000000;
+  --color-bg-base:    #0B0B0B;
   --color-bg-section: #111111;
   --color-bg-card:    #1A1A1A;
 
-  /* Text */
+  /* ── 2. NEUTRAL — Text & UI ──────────────────────── */
   --color-text-primary:   #FFFFFF;
   --color-text-secondary: #D1D5DB;
   --color-text-muted:     #9CA3AF;
+  --color-border:         #3A3A3A;
 
-  /* Accent */
-  --color-forest:  #2F5D50;
-  --color-gold:    #D6A75F;
+  /* ── 3. BRAND ACCENT ─────────────────────────────── */
+  --color-forest:        #2F5D50;
+  --color-forest-hover:  #3A6F60;
+  --color-forest-active: #244B40;
+
+  /* ── 4. PREMIUM ACCENT ───────────────────────────── */
+  --color-gold: #D6A75F;
+
+  /* ── 5. SEMANTIC COLORS ──────────────────────────── */
+  --color-success: #22C55E;
+  --color-warning: #EAB308;
+  --color-error:   #EF4444;
+}
+
+/* ─── Animations ────────────────────────────────────── */
+@keyframes hero-zoom-out {
+  from { transform: scale(1.12); }
+  to   { transform: scale(1.00); }
 }
 
 /* ─── Base ─────────────────────────────────────────── */
