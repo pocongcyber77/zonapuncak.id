@@ -62,6 +62,9 @@ export const metadata: Metadata = {
   category: 'travel',
 }
 
+/* ── Noise texture data URI — reused across the site ── */
+const NOISE_SVG = `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -69,7 +72,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="h-full antialiased">
-      <body className="min-h-full flex flex-col bg-white text-stone-900">{children}</body>
+      <body className="min-h-full flex flex-col bg-bg-base text-text-primary">
+        {/* Global noise texture — identical to Coming Soon page, fixed so it tiles over everything */}
+        <div
+          aria-hidden
+          className="fixed inset-0 pointer-events-none z-9998"
+          style={{
+            backgroundImage: NOISE_SVG,
+            backgroundRepeat: 'repeat',
+            opacity: 0.028,
+          }}
+        />
+        {children}
+      </body>
     </html>
   )
 }

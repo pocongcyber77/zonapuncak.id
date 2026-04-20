@@ -11,11 +11,6 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
-/* ─── Design constants ───────────────────────────── */
-const BASE  = '#0B0B0B'
-const SEC   = '#111111'
-const DARK  = '#07120F'
-
 /* ─── Data ───────────────────────────────────────── */
 
 const stats = [
@@ -96,14 +91,13 @@ const collageImgs = [
 ]
 
 const testimonials = [
-  { name: 'Rizky P.',  trip: 'Gunung Raung',   star: 5, text: 'Guide pro banget. Summit berasa nggak ngeri sama sekali.' },
-  { name: 'Sari D.',   trip: 'Gunung Rinjani',  star: 5, text: 'Semua diurus rapi. Tinggal nikmati pemandangannya.' },
-  { name: 'Andi F.',   trip: 'Gunung Semeru',   star: 5, text: 'Sunrise dari Mahameru bareng tim ZP — tak terlupakan.' },
+  { name: 'Rizky P.',  trip: 'Gunung Raung',  star: 5, text: 'Guide pro banget. Summit berasa nggak ngeri sama sekali.' },
+  { name: 'Sari D.',   trip: 'Gunung Rinjani', star: 5, text: 'Semua diurus rapi. Tinggal nikmati pemandangannya.' },
+  { name: 'Andi F.',   trip: 'Gunung Semeru',  star: 5, text: 'Sunrise dari Mahameru bareng tim ZP — tak terlupakan.' },
 ]
 
-/* ─── Shared helpers ─────────────────────────────── */
+/* ─── Helpers ────────────────────────────────────── */
 
-/** Eyebrow label — gold, tracked uppercase */
 function Label({ children }: { children: React.ReactNode }) {
   return (
     <p className="text-[11px] font-semibold tracking-[0.3em] uppercase text-gold mb-3">
@@ -112,14 +106,7 @@ function Label({ children }: { children: React.ReactNode }) {
   )
 }
 
-/** Section heading — Cormorant Garamond regular (not bold) */
-function H2({
-  children,
-  className = '',
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
+function H2({ children, className = '' }: { children: React.ReactNode; className?: string }) {
   return (
     <h2
       className={`leading-[1.1] text-white ${className}`}
@@ -130,16 +117,30 @@ function H2({
   )
 }
 
-/** Gradient divider — blends two adjacent section colours */
-function Fade({ from, to, h = 80 }: { from: string; to: string; h?: number }) {
+/**
+ * Radial green glow — sama persis style dari Coming Soon page.
+ * cx/cy = posisi pusat glow dalam persen (misalnya "20% 80%").
+ * intensity = opacity multiplier (default 1 = 0.14)
+ */
+function Glow({
+  cx = '50%',
+  cy = '100%',
+  rx = '80%',
+  ry = '60%',
+  intensity = 1,
+}: {
+  cx?: string
+  cy?: string
+  rx?: string
+  ry?: string
+  intensity?: number
+}) {
   return (
     <div
       aria-hidden
+      className="absolute inset-0 pointer-events-none"
       style={{
-        height: h,
-        background: `linear-gradient(to bottom, ${from}, ${to})`,
-        marginTop: -1,   // prevent 1-px gap on some screens
-        marginBottom: -1,
+        background: `radial-gradient(ellipse ${rx} ${ry} at ${cx} ${cy}, rgba(47,93,80,${(0.14 * intensity).toFixed(2)}) 0%, transparent 70%)`,
       }}
     />
   )
@@ -170,47 +171,55 @@ export default function HomePage() {
       {/* ══ HERO ══════════════════════════════════════════ */}
       <Hero />
 
-      {/* Hero → Stats fade (base → section) */}
-      <Fade from={BASE} to={SEC} h={64} />
+      {/* ══ STATS ════════════════════════════════════════
+          Glow: bottom-center, seperti Coming Soon.
+          Border tipis memisahkan dari hero tanpa harsh cut.
+      ════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: '#0d1a14' }}>
+        {/* Separator line top */}
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(47,93,80,0.4), transparent)' }} aria-hidden />
+        <Glow cx="50%" cy="120%" rx="100%" ry="80%" intensity={1.2} />
 
-      {/* ══ STATS STRIP ══════════════════════════════════ */}
-      <section style={{ backgroundColor: SEC }}>
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-10">
-          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12 py-14">
+          <dl className="grid grid-cols-2 lg:grid-cols-4 gap-10">
             {stats.map((s) => (
               <div key={s.label} className="flex flex-col gap-1">
                 <dt
-                  className="text-5xl leading-none text-gold"
+                  className="text-5xl lg:text-6xl leading-none text-gold"
                   style={{ fontFamily: 'var(--font-hero)' }}
                 >
                   {s.value}
                 </dt>
-                <dd className="text-sm text-text-muted">{s.label}</dd>
+                <dd className="text-sm text-text-muted mt-1">{s.label}</dd>
               </div>
             ))}
           </dl>
         </div>
+
+        {/* Fade ke base */}
+        <div
+          aria-hidden
+          className="absolute bottom-0 inset-x-0 h-20 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, transparent, #0B0B0B)' }}
+        />
       </section>
 
-      {/* Stats → Destinations fade (section → base) */}
-      <Fade from={SEC} to={BASE} h={80} />
+      {/* ══ DESTINATIONS ══════════════════════════════════
+          Glow: top-left, menyebar ke kanan — memberi kesan
+          pencahayaan dramatis dari pojok.
+      ════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-bg-base pt-20 pb-24 lg:pt-28 lg:pb-32">
+        <Glow cx="0%" cy="0%" rx="90%" ry="70%" intensity={0.9} />
 
-      {/* ══ DESTINATIONS ══════════════════════════════════ */}
-      <section style={{ backgroundColor: BASE }}>
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
-
-          {/* Centered heading */}
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-14">
             <Label>Destinasi Pilihan</Label>
-            <H2 className="text-4xl sm:text-5xl lg:text-6xl">
-              Jelajahi Puncak Indonesia
-            </H2>
+            <H2 className="text-4xl sm:text-5xl lg:text-6xl">Jelajahi Puncak Indonesia</H2>
             <p className="mt-4 text-sm text-text-muted max-w-md mx-auto leading-relaxed">
               Kami kurasi gunung-gunung terbaik — dari yang mudah hingga yang hanya untuk jiwa petualang sejati.
             </p>
           </div>
 
-          {/* 4-col photo cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {destinations.map((d) => (
               <Link
@@ -218,7 +227,6 @@ export default function HomePage() {
                 href="/coming-soon"
                 className="group relative h-72 rounded-2xl overflow-hidden flex flex-col justify-end"
               >
-                {/* Photo */}
                 <Image
                   src={d.img}
                   alt={d.name}
@@ -226,21 +234,12 @@ export default function HomePage() {
                   sizes="(max-width:768px) 50vw, 25vw"
                   className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-
-                {/* Gradient overlay */}
                 <div
                   className="absolute inset-0"
-                  style={{
-                    background:
-                      'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.30) 50%, transparent 100%)',
-                  }}
+                  style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)' }}
                 />
-
-                {/* Content */}
                 <div className="relative z-10 p-5">
-                  <span
-                    className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border mb-2 ${tagBadge[d.tag]}`}
-                  >
+                  <span className={`inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full border mb-2 ${tagBadge[d.tag]}`}>
                     {d.tag}
                   </span>
                   <p
@@ -249,11 +248,8 @@ export default function HomePage() {
                   >
                     {d.name}
                   </p>
-                  <div className="mt-1.5 flex items-center justify-between text-[11px] text-white/60">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3" />
-                      {d.location}
-                    </span>
+                  <div className="mt-1.5 flex items-center justify-between text-[11px] text-white/55">
+                    <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />{d.location}</span>
                     <span>{d.elevation}</span>
                   </div>
                 </div>
@@ -266,39 +262,45 @@ export default function HomePage() {
               href="/coming-soon"
               className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors duration-200"
             >
-              Lihat semua destinasi
-              <ArrowRight className="w-4 h-4" />
+              Lihat semua destinasi <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Destinations → Why Us fade (base → section) */}
-      <Fade from={BASE} to={SEC} h={80} />
+      {/* ══ WHY CHOOSE US ════════════════════════════════
+          Glow: bottom-center mirip Coming Soon — hangat
+          dari bawah naik ke atas.
+      ════════════════════════════════════════════════ */}
+      <section
+        className="relative overflow-hidden pt-20 pb-24 lg:pt-28 lg:pb-32"
+        style={{ backgroundColor: '#0d1a14' }}
+      >
+        <div
+          aria-hidden
+          className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(47,93,80,0.3), transparent)' }}
+        />
+        <Glow cx="50%" cy="100%" rx="80%" ry="60%" intensity={1.4} />
 
-      {/* ══ WHY CHOOSE US ════════════════════════════════ */}
-      <section style={{ backgroundColor: SEC }}>
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
-
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-16">
             <Label>Kenapa Kami</Label>
-            <H2 className="text-4xl sm:text-5xl">
-              Alasan Memilih Zona Puncak
-            </H2>
+            <H2 className="text-4xl sm:text-5xl">Alasan Memilih Zona Puncak</H2>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-8 lg:gap-14">
+          <div className="grid sm:grid-cols-3 gap-10 lg:gap-16">
             {reasons.map((r) => (
               <div key={r.title} className="flex flex-col items-center text-center gap-5">
-                <div className="w-16 h-16 rounded-full bg-forest flex items-center justify-center shrink-0">
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center shrink-0"
+                  style={{ background: 'radial-gradient(circle, rgba(47,93,80,0.5) 0%, rgba(47,93,80,0.2) 100%)', border: '1px solid rgba(47,93,80,0.5)' }}
+                >
                   <r.icon className="w-7 h-7 text-white" />
                 </div>
-                <div className="w-8 h-px bg-gold" />
+                <div className="w-8 h-px bg-gold opacity-60" />
                 <div>
-                  <p
-                    className="text-base font-semibold text-white mb-2 uppercase tracking-wide"
-                    style={{ fontFamily: 'var(--font-heading)' }}
-                  >
+                  <p className="text-base font-semibold text-white mb-2 uppercase tracking-wide" style={{ fontFamily: 'var(--font-heading)' }}>
                     {r.title}
                   </p>
                   <p className="text-sm text-text-muted leading-relaxed">{r.body}</p>
@@ -309,72 +311,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why Us → Split fade (section → base) */}
-      <Fade from={SEC} to={BASE} h={80} />
+      {/* ══ SPLIT FEATURE ════════════════════════════════
+          Glow: kanan-bawah — cahaya dari balik foto.
+      ════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-bg-base pt-20 pb-24 lg:pt-28 lg:pb-32">
+        <Glow cx="100%" cy="80%" rx="70%" ry="60%" intensity={1.0} />
 
-      {/* ══ SPLIT FEATURE ════════════════════════════════ */}
-      <section style={{ backgroundColor: BASE }}>
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-            {/* Left — 2-col image grid */}
+            {/* Left image grid */}
             <div className="grid grid-cols-2 gap-3">
-              {/* Tall left card */}
-              <div className="relative col-span-1 row-span-2 rounded-2xl overflow-hidden min-h-[320px] lg:min-h-[420px]">
-                <Image
-                  src={splitImgs.tall}
-                  alt="Pemandangan gunung"
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
+              <div className="relative col-span-1 row-span-2 rounded-2xl overflow-hidden min-h-[320px] lg:min-h-[420px]" style={{ border: '1px solid rgba(47,93,80,0.25)' }}>
+                <Image src={splitImgs.tall} alt="Pemandangan gunung" fill sizes="25vw" className="object-cover" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(7,18,12,0.6) 0%, transparent 50%)' }} />
               </div>
-              {/* Short top-right */}
-              <div className="relative rounded-2xl overflow-hidden min-h-[150px] lg:min-h-[200px]">
-                <Image
-                  src={splitImgs.shortA}
-                  alt="Pendakian gunung"
-                  fill
-                  sizes="15vw"
-                  className="object-cover"
-                />
+              <div className="relative rounded-2xl overflow-hidden min-h-[150px] lg:min-h-[200px]" style={{ border: '1px solid rgba(47,93,80,0.2)' }}>
+                <Image src={splitImgs.shortA} alt="Pendakian gunung" fill sizes="15vw" className="object-cover" />
               </div>
-              {/* Short bottom-right */}
-              <div className="relative rounded-2xl overflow-hidden min-h-[150px] lg:min-h-[200px]">
-                <Image
-                  src={splitImgs.shortB}
-                  alt="Alam pegunungan"
-                  fill
-                  sizes="15vw"
-                  className="object-cover"
-                />
+              <div className="relative rounded-2xl overflow-hidden min-h-[150px] lg:min-h-[200px]" style={{ border: '1px solid rgba(47,93,80,0.2)' }}>
+                <Image src={splitImgs.shortB} alt="Alam pegunungan" fill sizes="15vw" className="object-cover" />
               </div>
             </div>
 
-            {/* Right — copy */}
+            {/* Right copy */}
             <div className="flex flex-col gap-6">
               <Label>Filosofi Kami</Label>
-
               <H2 className="text-4xl sm:text-5xl lg:text-[3.25rem]">
-                Setiap Puncak<br />
-                <em>Punya Ceritanya</em>
+                Setiap Puncak<br /><em>Punya Ceritanya</em>
               </H2>
-
               <p className="text-text-secondary text-base leading-relaxed max-w-sm">
                 Bagi kami mendaki bukan sekadar olahraga — ini tentang bertemu dirimu sendiri di ketinggian. Kami hadir memastikan perjalanan itu aman, bermakna, dan tak terlupakan.
               </p>
-
               <p className="text-text-muted text-sm leading-relaxed max-w-sm">
                 Setiap trip dirancang bersama guide berpengalaman, jadwal logistik terstruktur, dan komunitas pendaki yang solid.
               </p>
-
               <div>
                 <Link
                   href="/coming-soon"
-                  className="inline-flex items-center gap-2 bg-forest hover:bg-forest-hover text-white font-semibold text-sm px-7 py-3.5 rounded-full transition-all duration-200 active:scale-95"
+                  className="inline-flex items-center gap-2 font-semibold text-sm px-7 py-3.5 rounded-full transition-all duration-200 active:scale-95"
+                  style={{ background: 'rgba(47,93,80,0.85)', color: '#fff', border: '1px solid rgba(47,93,80,0.6)' }}
                 >
-                  Gabung Trip Sekarang
-                  <ArrowRight className="w-4 h-4" />
+                  Gabung Trip Sekarang <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
@@ -382,27 +360,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Split → Explore fade (base → deep dark) */}
-      <Fade from={BASE} to={DARK} h={96} />
+      {/* ══ EXPLORE ══════════════════════════════════════
+          Glow: center paling kuat — ini section paling
+          "forest" di halaman, seperti di dalam hutan.
+      ════════════════════════════════════════════════ */}
+      <section
+        className="relative overflow-hidden pt-20 pb-24 lg:pt-28 lg:pb-32"
+        style={{ backgroundColor: '#07120F' }}
+      >
+        <div
+          aria-hidden
+          className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(47,93,80,0.5), transparent)' }}
+        />
+        {/* Strong center glow */}
+        <Glow cx="50%" cy="50%" rx="100%" ry="80%" intensity={1.8} />
+        {/* Secondary edge glows */}
+        <Glow cx="0%"   cy="100%" rx="60%" ry="50%" intensity={0.7} />
+        <Glow cx="100%" cy="0%"   rx="50%" ry="40%" intensity={0.5} />
 
-      {/* ══ EXPLORE ══════════════════════════════════════ */}
-      <section style={{ backgroundColor: DARK }}>
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12">
           <div className="grid lg:grid-cols-2 gap-14 items-center">
 
-            {/* Left — text */}
+            {/* Left text */}
             <div className="flex flex-col gap-6">
               <Label>Mulai Petualangan</Label>
-
               <H2 className="text-4xl sm:text-5xl lg:text-6xl">
-                Jelajahi Alam<br />
-                <em>Bersama Kami</em>
+                Jelajahi Alam<br /><em>Bersama Kami</em>
               </H2>
-
               <p className="text-text-secondary text-base leading-relaxed max-w-sm">
                 Dari Jawa hingga Lombok — ribuan kilometer jalur gunung menanti. Bergabunglah dan jadilah bagian dari komunitas pendaki Indonesia.
               </p>
-
               <div className="flex flex-col gap-3 max-w-xs">
                 {[
                   'Perencanaan perjalanan profesional dari A sampai Z',
@@ -410,77 +398,56 @@ export default function HomePage() {
                   'Komunitas alumni pendaki yang aktif dan suportif',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0 opacity-80" />
                     <p className="text-sm text-text-muted">{item}</p>
                   </div>
                 ))}
               </div>
-
               <Link
                 href="/coming-soon"
-                className="self-start inline-flex items-center gap-2 border border-gold/40 text-gold hover:bg-gold/10 font-medium text-sm px-6 py-3 rounded-full transition-all duration-200"
+                className="self-start inline-flex items-center gap-2 font-medium text-sm px-6 py-3 rounded-full transition-all duration-200"
+                style={{ border: '1px solid rgba(214,167,95,0.35)', color: 'rgba(214,167,95,0.9)' }}
               >
-                Lihat Jadwal Trip
-                <ArrowRight className="w-4 h-4" />
+                Lihat Jadwal Trip <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            {/* Right — photo collage */}
+            {/* Right collage */}
             <div className="grid grid-cols-3 grid-rows-3 gap-2 h-[380px] lg:h-[460px]">
-              {/* Large top-left (spans 2×2) */}
-              <div className="relative col-span-2 row-span-2 rounded-xl overflow-hidden">
-                <Image
-                  src={collageImgs[0]}
-                  alt="Alam pegunungan Indonesia"
-                  fill
-                  sizes="25vw"
-                  className="object-cover"
-                />
+              <div className="relative col-span-2 row-span-2 rounded-xl overflow-hidden" style={{ border: '1px solid rgba(47,93,80,0.3)' }}>
+                <Image src={collageImgs[0]} alt="Alam pegunungan" fill sizes="25vw" className="object-cover" />
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(7,18,12,0.4) 0%, transparent 60%)' }} />
               </div>
-              {/* Top-right */}
-              <div className="relative col-span-1 row-span-1 rounded-xl overflow-hidden">
-                <Image
-                  src={collageImgs[1]}
-                  alt="Pemandangan gunung"
-                  fill
-                  sizes="10vw"
-                  className="object-cover"
-                />
+              <div className="relative rounded-xl overflow-hidden" style={{ border: '1px solid rgba(47,93,80,0.2)' }}>
+                <Image src={collageImgs[1]} alt="Pemandangan gunung" fill sizes="10vw" className="object-cover" />
               </div>
-              {/* Mid-right */}
-              <div className="relative col-span-1 row-span-1 rounded-xl overflow-hidden">
-                <Image
-                  src={collageImgs[2]}
-                  alt="Pendakian"
-                  fill
-                  sizes="10vw"
-                  className="object-cover"
-                />
+              <div className="relative rounded-xl overflow-hidden" style={{ border: '1px solid rgba(47,93,80,0.2)' }}>
+                <Image src={collageImgs[2]} alt="Pendakian" fill sizes="10vw" className="object-cover" />
               </div>
-              {/* Bottom row × 3 */}
               {collageImgs.slice(2, 5).map((src, i) => (
-                <div key={i} className="relative col-span-1 row-span-1 rounded-xl overflow-hidden">
-                  <Image
-                    src={src}
-                    alt="Gunung Indonesia"
-                    fill
-                    sizes="10vw"
-                    className="object-cover"
-                  />
+                <div key={i} className="relative rounded-xl overflow-hidden" style={{ border: '1px solid rgba(47,93,80,0.15)' }}>
+                  <Image src={src} alt="Gunung Indonesia" fill sizes="10vw" className="object-cover" />
                 </div>
               ))}
             </div>
           </div>
         </div>
+
+        {/* Bottom fade */}
+        <div
+          aria-hidden
+          className="absolute bottom-0 inset-x-0 h-24 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, transparent, #0B0B0B)' }}
+        />
       </section>
 
-      {/* Explore → Testimonials fade (deep dark → base) */}
-      <Fade from={DARK} to={BASE} h={80} />
+      {/* ══ TESTIMONIALS ═════════════════════════════════
+          Glow: top-right — cahaya sisa dari Explore.
+      ════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden bg-bg-base pt-20 pb-24 lg:pt-28 lg:pb-32">
+        <Glow cx="100%" cy="0%" rx="70%" ry="55%" intensity={0.8} />
 
-      {/* ══ TESTIMONIALS ═════════════════════════════════ */}
-      <section style={{ backgroundColor: BASE }}>
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pb-24 lg:pb-32">
-
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12">
           <div className="text-center mb-14">
             <Label>Kata Mereka</Label>
             <H2 className="text-4xl sm:text-5xl">Suara Alumni Pendaki</H2>
@@ -490,7 +457,12 @@ export default function HomePage() {
             {testimonials.map((t) => (
               <div
                 key={t.name}
-                className="p-7 rounded-2xl border border-border bg-bg-card flex flex-col gap-4"
+                className="p-7 rounded-2xl flex flex-col gap-4"
+                style={{
+                  background: 'rgba(13,26,20,0.6)',
+                  border: '1px solid rgba(47,93,80,0.25)',
+                  backdropFilter: 'blur(2px)',
+                }}
               >
                 <div className="flex gap-1">
                   {Array.from({ length: t.star }).map((_, i) => (
@@ -498,14 +470,14 @@ export default function HomePage() {
                   ))}
                 </div>
                 <p
-                  className="text-xl leading-snug flex-1 text-white/80 italic"
+                  className="text-xl leading-snug flex-1 text-white/75 italic"
                   style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
                 >
                   &ldquo;{t.text}&rdquo;
                 </p>
-                <div className="border-t border-border pt-4">
+                <div className="pt-4" style={{ borderTop: '1px solid rgba(47,93,80,0.25)' }}>
                   <p className="text-sm font-semibold text-white">{t.name}</p>
-                  <p className="text-xs mt-0.5 text-gold">{t.trip}</p>
+                  <p className="text-xs mt-0.5 text-gold opacity-80">{t.trip}</p>
                 </div>
               </div>
             ))}
@@ -513,35 +485,40 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials → CTA fade (base → forest) */}
-      <Fade from={BASE} to="#1a3a2f" h={96} />
+      {/* ══ CTA ══════════════════════════════════════════
+          Glow terkuat di halaman — double ellipse dari
+          bawah + kiri, mirip aurora/sunrise.
+      ════════════════════════════════════════════════ */}
+      <section className="relative overflow-hidden" style={{ backgroundColor: '#050e0a' }}>
+        <div
+          aria-hidden
+          className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(to right, transparent, rgba(47,93,80,0.6), transparent)' }}
+        />
+        {/* Primary glow — bottom-center */}
+        <Glow cx="50%" cy="100%" rx="90%" ry="70%" intensity={2.0} />
+        {/* Secondary — top-left */}
+        <Glow cx="0%"  cy="30%"  rx="60%" ry="50%" intensity={1.0} />
 
-      {/* ══ CTA BOTTOM ════════════════════════════════════ */}
-      <section
-        style={{
-          background: 'linear-gradient(135deg, #2F5D50 0%, #0d1a14 60%)',
-        }}
-      >
-        <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-24 lg:py-32 flex flex-col md:flex-row items-start md:items-end justify-between gap-10">
+        <div className="relative z-10 max-w-[1200px] mx-auto px-6 lg:px-12 py-28 lg:py-36 flex flex-col md:flex-row items-start md:items-end justify-between gap-12">
           <div>
             <Label>Siap Mendaki?</Label>
             <H2 className="text-5xl sm:text-6xl lg:text-7xl">
-              Raih Puncak<br />
-              <em>Impianmu</em>
+              Raih Puncak<br /><em>Impianmu</em>
             </H2>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
             <Link
               href="/coming-soon"
-              className="inline-flex items-center justify-center gap-2 bg-white text-bg-section hover:bg-gold font-semibold text-sm px-7 py-3.5 rounded-full transition-all duration-200 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 bg-white text-bg-base font-semibold text-sm px-7 py-3.5 rounded-full transition-all duration-200 active:scale-95 hover:bg-gold"
             >
-              Gabung Trip
-              <ArrowRight className="w-4 h-4" />
+              Gabung Trip <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/coming-soon"
-              className="inline-flex items-center justify-center gap-2 border border-white/30 text-white hover:bg-white/10 font-medium text-sm px-7 py-3.5 rounded-full transition-all duration-200 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 font-medium text-sm px-7 py-3.5 rounded-full transition-all duration-200 active:scale-95"
+              style={{ border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.8)' }}
             >
               Lihat Jadwal
             </Link>
