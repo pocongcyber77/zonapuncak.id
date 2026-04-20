@@ -166,10 +166,10 @@ export default function Hero({
               </p>
             </div>
 
-            {/* Heading — Cormorant Garamond regular */}
+            {/* Heading — Bebas Neue bold, 20% lebih kecil dari versi Cormorant sebelumnya */}
             <h1
-              className="text-[clamp(2.8rem,6.8vw,5.5rem)] leading-[1.05] text-white"
-              style={{ fontFamily: 'var(--font-serif)', fontWeight: 400 }}
+              className="text-[clamp(2.2rem,5.4vw,4.4rem)] leading-none uppercase text-white"
+              style={{ fontFamily: 'var(--font-hero)', fontWeight: 700, letterSpacing: '0.01em' }}
             >
               {title.split('\n').map((line, i, arr) => (
                 <span key={i}>

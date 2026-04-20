@@ -59,21 +59,9 @@ const tagBadge: Record<string, string> = {
 }
 
 const reasons = [
-  {
-    icon: Shield,
-    title: 'Terpercaya',
-    body: 'Lebih dari 150 pendaki telah kami antar dengan selamat ke puncak impian mereka.',
-  },
-  {
-    icon: Compass,
-    title: 'Rute Terkurasi',
-    body: 'Setiap jalur dipilih cermat. Aman, teruji, dan tetap menantang sesuai levelmu.',
-  },
-  {
-    icon: Users,
-    title: 'Satu Partner',
-    body: 'Dari persiapan hingga turun gunung — kami ada di setiap langkahmu.',
-  },
+  { icon: Shield,  title: 'Terpercaya',     body: '150+ pendaki. Selamat sampai puncak.' },
+  { icon: Compass, title: 'Rute Terkurasi', body: 'Aman, teruji, sesuai levelmu.' },
+  { icon: Users,   title: 'Satu Partner',   body: 'Dari persiapan hingga turun gunung.' },
 ]
 
 const splitImgs = {
@@ -215,9 +203,6 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <Label>Destinasi Pilihan</Label>
             <H2 className="text-4xl sm:text-5xl lg:text-6xl">Jelajahi Puncak Indonesia</H2>
-            <p className="mt-4 text-sm text-text-muted max-w-md mx-auto leading-relaxed">
-              Kami kurasi gunung-gunung terbaik — dari yang mudah hingga yang hanya untuk jiwa petualang sejati.
-            </p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -341,10 +326,7 @@ export default function HomePage() {
                 Setiap Puncak<br /><em>Punya Ceritanya</em>
               </H2>
               <p className="text-text-secondary text-base leading-relaxed max-w-sm">
-                Bagi kami mendaki bukan sekadar olahraga — ini tentang bertemu dirimu sendiri di ketinggian. Kami hadir memastikan perjalanan itu aman, bermakna, dan tak terlupakan.
-              </p>
-              <p className="text-text-muted text-sm leading-relaxed max-w-sm">
-                Setiap trip dirancang bersama guide berpengalaman, jadwal logistik terstruktur, dan komunitas pendaki yang solid.
+                Mendaki adalah tentang bertemu dirimu sendiri di ketinggian.
               </p>
               <div>
                 <Link
@@ -389,13 +371,13 @@ export default function HomePage() {
                 Jelajahi Alam<br /><em>Bersama Kami</em>
               </H2>
               <p className="text-text-secondary text-base leading-relaxed max-w-sm">
-                Dari Jawa hingga Lombok — ribuan kilometer jalur gunung menanti. Bergabunglah dan jadilah bagian dari komunitas pendaki Indonesia.
+                Dari Jawa hingga Lombok — jalur terbaik menanti.
               </p>
               <div className="flex flex-col gap-3 max-w-xs">
                 {[
-                  'Perencanaan perjalanan profesional dari A sampai Z',
-                  'Guide lokal berpengalaman di setiap gunung',
-                  'Komunitas alumni pendaki yang aktif dan suportif',
+                  'Persiapan A–Z oleh tim profesional',
+                  'Guide lokal berpengalaman',
+                  'Komunitas alumni yang solid',
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0 opacity-80" />

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Clock, Hammer } from 'lucide-react'
+import { ArrowLeft, Hammer } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Segera Hadir',
@@ -36,7 +36,7 @@ export default function ComingSoonPage() {
         aria-hidden
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-lg w-full gap-8">
+      <div className="relative z-10 flex flex-col items-center text-center max-w-md w-full gap-12">
 
         {/* Logo */}
         <Link href="/">
@@ -45,64 +45,30 @@ export default function ComingSoonPage() {
             alt="Zona Puncak Indonesia"
             width={160}
             height={50}
-            className="h-10 w-auto object-contain brightness-0 invert opacity-70 hover:opacity-100 transition-opacity duration-200"
+            className="h-10 w-auto object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-opacity duration-200"
           />
         </Link>
 
-        {/* Icon badge */}
+        {/* Badge */}
         <div className="flex items-center gap-2 bg-white/5 border border-border rounded-full px-4 py-2">
-          <Hammer className="w-3.5 h-3.5 text-gold animate-pulse" />
-          <span className="text-xs font-medium tracking-widest uppercase text-text-muted">
+          <Hammer className="w-3 h-3 text-gold animate-pulse" />
+          <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-text-muted">
             Dalam Pengembangan
           </span>
         </div>
 
         {/* Heading */}
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-4">
           <h1
-            className="text-5xl xs:text-6xl uppercase text-text-primary leading-none"
+            className="text-6xl xs:text-7xl uppercase text-text-primary leading-none"
             style={{ fontFamily: 'var(--font-hero)' }}
           >
-            Segera
-            <br />
+            Segera<br />
             <span className="text-gold">Hadir</span>
           </h1>
-          <p className="text-base xs:text-lg leading-relaxed text-text-muted">
-            Hei, pendaki! Halaman ini masih kami persiapkan dengan sepenuh hati.
-            Kami bekerja keras agar setiap fitur hadir sempurna untukmu.
+          <p className="text-sm text-text-muted">
+            Kami sedang mempersiapkan sesuatu yang luar biasa.
           </p>
-        </div>
-
-        {/* Divider */}
-        <div className="w-16 h-px bg-border" />
-
-        {/* Info card */}
-        <div className="w-full bg-bg-card border border-border rounded-2xl p-6 flex flex-col gap-4">
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-forest/15 flex items-center justify-center shrink-0 mt-0.5">
-              <Clock className="w-4 h-4 text-forest" />
-            </div>
-            <div className="text-left">
-              <p className="text-sm font-semibold text-text-secondary mb-0.5">Apa yang sedang dibangun?</p>
-              <p className="text-sm leading-relaxed text-text-muted">
-                Fitur ini sedang dalam tahap development aktif. Tim kami
-                sedang memastikan pengalaman terbaik sebelum dirilis.
-              </p>
-            </div>
-          </div>
-          <div className="h-px bg-border" />
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center shrink-0 mt-0.5">
-              <span className="text-sm">🏔️</span>
-            </div>
-            <div className="text-left">
-              <p className="text-sm font-semibold text-text-secondary mb-0.5">Sementara itu...</p>
-              <p className="text-sm leading-relaxed text-text-muted">
-                Pantau terus perkembangan kami. Zona Puncak Indonesia
-                akan segera hadir dengan pengalaman pendakian terbaik.
-              </p>
-            </div>
-          </div>
         </div>
 
         {/* CTA */}
@@ -111,7 +77,7 @@ export default function ComingSoonPage() {
           className="inline-flex items-center gap-2 bg-white text-bg-section font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200"
         >
           <ArrowLeft className="w-4 h-4" />
-          Kembali ke Beranda
+          Kembali
         </Link>
 
       </div>
