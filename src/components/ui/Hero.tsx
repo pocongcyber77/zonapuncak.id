@@ -26,13 +26,13 @@ export default function Hero({
      * Mobile  : flex-col — image block di atas, content di bawah
      * Desktop : h-screen — image jadi background fill, content overlay bottom-left
      */
-    <section className="bg-bg-base flex flex-col md:block md:relative md:h-screen md:min-h-[640px] md:overflow-hidden">
+    <section className="bg-bg-base flex flex-col sm:block sm:relative sm:h-screen sm:min-h-[640px] sm:overflow-hidden">
 
       {/* ── IMAGE ─────────────────────────────────────────
           Mobile  : block dengan aspect ratio, image fit penuh tanpa crop
           Desktop : absolute fill background
       ── */}
-      <div className="relative w-full aspect-video shrink-0 md:absolute md:inset-0 md:w-full md:h-full">
+      <div className="relative w-full aspect-video shrink-0 sm:absolute sm:inset-0 sm:w-full sm:h-full">
         <Image
           src={imageSrc}
           alt="Pendaki menuju puncak gunung Indonesia"
@@ -45,7 +45,7 @@ export default function Hero({
 
         {/* Gradient overlays — desktop only */}
         <div
-          className="hidden md:block absolute inset-0"
+          className="hidden sm:block absolute inset-0"
           style={{
             background:
               'linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.10) 30%, rgba(0,0,0,0.00) 50%, rgba(0,0,0,0.55) 100%)',
@@ -53,7 +53,7 @@ export default function Hero({
           aria-hidden
         />
         <div
-          className="hidden md:block absolute inset-0"
+          className="hidden sm:block absolute inset-0"
           style={{
             background:
               'linear-gradient(to right, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.30) 45%, rgba(0,0,0,0.00) 75%)',
@@ -63,7 +63,7 @@ export default function Hero({
 
         {/* Mobile: fade bawah ke bg-base agar transisi mulus */}
         <div
-          className="md:hidden absolute bottom-0 left-0 right-0 h-12"
+          className="sm:hidden absolute bottom-0 left-0 right-0 h-12"
           style={{ background: 'linear-gradient(to top, #0B1D1A, transparent)' }}
           aria-hidden
         />
@@ -73,8 +73,8 @@ export default function Hero({
           Mobile  : block biasa, di bawah image, bg-bg-base
           Desktop : absolute overlay bottom-left
       ── */}
-      <div className="relative md:absolute md:inset-0 md:flex md:items-end">
-        <div className="w-full max-w-[1200px] mx-auto px-6 lg:px-12 py-8 md:pb-24">
+      <div className="relative sm:absolute sm:inset-0 sm:flex sm:items-end">
+          <div className="w-full max-w-[1200px] mx-auto px-6 lg:px-12 py-8 sm:pb-24">
           <div className="max-w-[560px] flex flex-col gap-5">
 
             {/* Trust badge */}
@@ -110,7 +110,7 @@ export default function Hero({
             </h1>
 
             {/* Description */}
-            <p className="text-base sm:text-lg leading-relaxed max-w-[480px]" style={{ color: '#D1D5DB' }}>
+            <p className="text-base xs:text-lg leading-relaxed max-w-[480px]" style={{ color: '#D1D5DB' }}>
               {description}
             </p>
 
@@ -131,7 +131,7 @@ export default function Hero({
 
       {/* Bottom blend ke page bg — desktop only */}
       <div
-        className="hidden md:block absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
+        className="hidden sm:block absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
         style={{ background: 'linear-gradient(to top, #0B1D1A 0%, transparent 100%)' }}
         aria-hidden
       />

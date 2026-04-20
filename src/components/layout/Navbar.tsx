@@ -156,7 +156,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       )}
     >
       <div className="max-w-[1200px] mx-auto px-6 lg:px-12">
-        <nav className="flex items-center justify-between h-16 md:h-20 gap-6">
+          <nav className="flex items-center justify-between h-16 sm:h-20 gap-6">
 
           {/* ── Logo ── */}
           <Link href="/" className="flex items-center shrink-0">

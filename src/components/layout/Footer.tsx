@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <footer className="bg-stone-900 text-stone-300">
       <Container>
-        <div className="py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="py-12 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-flex mb-3">
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-stone-800 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-stone-500">
+          <div className="border-t border-stone-800 py-4 flex flex-col xs:flex-row items-center justify-between gap-2 text-xs text-stone-500">
           <p>© {new Date().getFullYear()} Zona Puncak Indonesia. All rights reserved.</p>
           <p>Built with love... for Indonesian mountaineers.</p>
         </div>

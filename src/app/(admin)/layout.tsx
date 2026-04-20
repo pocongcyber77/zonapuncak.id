@@ -9,9 +9,30 @@ const adminNav = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex bg-stone-100">
-      {/* Sidebar */}
-      <aside className="w-56 bg-stone-900 text-stone-300 flex flex-col py-6">
+    <div className="min-h-screen flex flex-col lg:flex-row bg-stone-100">
+
+      {/* Top bar — mobile & tablet (<1024px) */}
+      <header className="lg:hidden bg-stone-900 text-stone-300 px-4 py-3 flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-2 font-bold text-white mr-auto">
+          <Mountain className="w-5 h-5 text-emerald-400" />
+          <span className="text-sm">Admin Panel</span>
+        </Link>
+        <nav className="flex items-center gap-1">
+          {adminNav.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs hover:bg-white/10 transition-colors"
+            >
+              <item.icon className="w-3.5 h-3.5" />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </header>
+
+      {/* Sidebar — laptop & desktop (≥1024px) */}
+      <aside className="hidden lg:flex w-56 bg-stone-900 text-stone-300 flex-col py-6 shrink-0">
         <Link href="/" className="flex items-center gap-2 px-5 mb-8 font-bold text-white">
           <Mountain className="w-5 h-5 text-emerald-400" />
           <span className="text-sm">Admin Panel</span>
@@ -34,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Content */}
-      <main className="flex-1 p-8 overflow-auto">{children}</main>
+      <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">{children}</main>
     </div>
   )
 }

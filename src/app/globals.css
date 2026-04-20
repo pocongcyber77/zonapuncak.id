@@ -5,6 +5,19 @@
 
 /* ─── Design Token ─────────────────────────────────── */
 @theme {
+  /* ── Breakpoints ──────────────────────────────────
+     xs  : 480px  — mobile landscape
+     sm  : 768px  — tablet portrait
+     md  : 834px  — tablet landscape
+     lg  : 1024px — laptop
+     xl  : 1440px — desktop
+  ── */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 834px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+
   /* Fonts */
   --font-hero:    'Bebas Neue', 'Arial Narrow', sans-serif;
   --font-heading: 'Oswald', 'Arial Narrow', sans-serif;

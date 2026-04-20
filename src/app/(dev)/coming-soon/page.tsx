@@ -56,14 +56,14 @@ export default function ComingSoonPage() {
         {/* Heading */}
         <div className="flex flex-col gap-3">
           <h1
-            className="text-5xl sm:text-6xl uppercase text-white leading-none"
+            className="text-5xl xs:text-6xl uppercase text-white leading-none"
             style={{ fontFamily: 'var(--font-hero)' }}
           >
             Segera
             <br />
             <span style={{ color: 'var(--color-gold)' }}>Hadir</span>
           </h1>
-          <p className="text-base sm:text-lg leading-relaxed" style={{ color: '#9CA3AF' }}>
+          <p className="text-base xs:text-lg leading-relaxed" style={{ color: '#9CA3AF' }}>
             Hei, pendaki! Halaman ini masih kami persiapkan dengan sepenuh hati.
             Kami bekerja keras agar setiap fitur hadir sempurna untukmu.
           </p>
