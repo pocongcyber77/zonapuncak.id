@@ -13,7 +13,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Top bar — mobile & tablet (<1024px) */}
       <header className="lg:hidden bg-bg-card border-b border-border px-4 py-3 flex items-center gap-4">
         <Link href="/" className="flex items-center gap-2 font-bold text-text-primary mr-auto">
-          <Mountain className="w-5 h-5 text-forest" />
+          <Mountain className="w-5 h-5 text-forest-text" />
           <span className="text-sm">Admin Panel</span>
         </Link>
         <nav className="flex items-center gap-1">
@@ -33,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Sidebar — laptop & desktop (≥1024px) */}
       <aside className="hidden lg:flex w-56 bg-bg-card border-r border-border flex-col py-6 shrink-0">
         <Link href="/" className="flex items-center gap-2 px-5 mb-8 font-bold text-text-primary">
-          <Mountain className="w-5 h-5 text-forest" />
+          <Mountain className="w-5 h-5 text-forest-text" />
           <span className="text-sm">Admin Panel</span>
         </Link>
         <nav className="flex-1">

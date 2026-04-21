@@ -40,6 +40,7 @@
   --color-forest:        #2F5D50;
   --color-forest-hover:  #3A6F60;
   --color-forest-active: #244B40;
+  --color-forest-text:   #5AA88E; /* AA-compliant: 7.7:1 on dark backgrounds */
 
   /* ── 4. PREMIUM ACCENT ───────────────────────────── */
   --color-gold: #D6A75F;

@@ -22,14 +22,14 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-bg-base">
       {/* Header */}
-      <section className="border-b border-border">
+      <section>
         <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pt-32 pb-10">
           <div className="inline-flex items-center gap-2 text-text-muted text-sm mb-3">
             <Camera className="w-4 h-4" />
             Gallery
           </div>
           <h1
-            className="text-4xl sm:text-5xl uppercase text-text-primary leading-none mb-3"
+            className="text-[40px] sm:text-5xl uppercase text-text-primary leading-none mb-3"
             style={{ fontFamily: 'var(--font-hero)' }}
           >
             Momen Pendakian
@@ -49,7 +49,7 @@ export default function GalleryPage() {
               return (
                 <article
                   key={`${item.src}-${item.title}`}
-                  className={`group relative overflow-hidden rounded-2xl border border-border bg-bg-card ${tall ? 'sm:row-span-2' : ''}`}
+                  className={`group relative overflow-hidden rounded-2xl bg-bg-card ${tall ? 'sm:row-span-2' : ''}`}
                 >
                   <div className={`relative w-full ${tall ? 'h-[420px]' : 'h-[260px]'}`}>
                     <Image
@@ -67,7 +67,6 @@ export default function GalleryPage() {
                           'linear-gradient(to top, rgba(11,11,11,0.78) 0%, rgba(11,11,11,0.15) 55%, transparent 100%)',
                       }}
                     />
-
                     <div className="absolute bottom-0 left-0 right-0 p-4">
                       <p className="text-[11px] text-text-secondary mb-1">{item.category}</p>
                       <p className="text-sm font-semibold text-white">{item.title}</p>
@@ -81,11 +80,11 @@ export default function GalleryPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-border">
+      <section>
         <div className="max-w-[1200px] mx-auto px-6 lg:px-12 py-12">
-          <div className="bg-bg-card border border-border rounded-3xl px-7 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-bg-card rounded-3xl px-7 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-              <p className="text-lg font-semibold text-text-primary">Ingin jadi bagian dari cerita berikutnya?</p>
+              <p className="text-xl font-semibold text-text-primary">Ingin jadi bagian dari cerita berikutnya?</p>
               <p className="text-sm text-text-muted">Lihat trip aktif dan pilih jadwal terbaikmu.</p>
             </div>
             <Link

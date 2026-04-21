@@ -107,7 +107,7 @@ function Sidebar({ onClose }: { onClose?: () => void }) {
       <div className="px-3 py-4 border-t border-border shrink-0">
         <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl mb-1">
           <div className="w-7 h-7 rounded-full bg-forest/20 flex items-center justify-center shrink-0">
-            <span className="text-xs font-bold text-forest">A</span>
+            <span className="text-xs font-bold text-forest-text">A</span>
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-text-primary truncate">Admin</p>

@@ -36,7 +36,6 @@ function formatDate(d: string) {
 export default function JadwalPage() {
   const trips = getAllTrips()
 
-  /* Kumpulkan semua batch, urutkan terdekat */
   const allBatches = trips
     .flatMap((t) => t.batches.map((b) => ({ ...b, trip: t })))
     .sort((a, b) => a.start_date.localeCompare(b.start_date))
@@ -45,14 +44,14 @@ export default function JadwalPage() {
     <div className="min-h-screen bg-bg-base">
 
       {/* ── Header ────────────────────────────── */}
-      <div className="border-b border-border">
+      <div>
         <div className="max-w-[1200px] mx-auto px-6 lg:px-12 pt-32 pb-10">
           <div className="flex items-center gap-2 text-text-muted text-sm mb-3">
             <CalendarDays className="w-4 h-4" />
             <span>Jadwal Trip</span>
           </div>
           <h1
-            className="text-4xl sm:text-5xl uppercase text-text-primary leading-none mb-3"
+            className="text-[40px] sm:text-5xl uppercase text-text-primary leading-none mb-3"
             style={{ fontFamily: 'var(--font-hero)' }}
           >
             Semua Jadwal
@@ -68,7 +67,7 @@ export default function JadwalPage() {
 
           {/* ── Sidebar: Trip cards ─────────────── */}
           <div className="flex flex-col gap-4">
-            <p className="text-xs text-text-muted uppercase tracking-widest px-0.5">Gunung Tersedia</p>
+            <p className="text-xs text-text-muted uppercase tracking-widest px-1">Gunung Tersedia</p>
             {trips.map((trip) => {
               const diff = DIFFICULTY_CFG[trip.difficulty]
               const openCount = trip.batches.filter(b => b.status === 'open' || b.status === 'almost_full').length
@@ -76,7 +75,7 @@ export default function JadwalPage() {
                 <Link
                   key={trip.slug}
                   href={`/jadwal/${trip.slug}`}
-                  className="group relative bg-bg-card border border-border rounded-2xl overflow-hidden hover:border-white/25 transition-all duration-200"
+                  className="group relative bg-bg-card rounded-2xl overflow-hidden hover:bg-bg-section transition-all duration-200"
                 >
                   <div className="relative h-32">
                     <Image
@@ -93,7 +92,7 @@ export default function JadwalPage() {
                       <span className="text-sm font-bold text-white" style={{ fontFamily: 'var(--font-heading)' }}>
                         {trip.name}
                       </span>
-                      <span className={clsx('text-[10px] font-semibold px-2 py-0.5 rounded-full', diff.color)}>
+                      <span className={clsx('text-[10px] font-semibold px-2 py-1 rounded-full', diff.color)}>
                         {diff.label}
                       </span>
                     </div>
@@ -109,7 +108,7 @@ export default function JadwalPage() {
                         {trip.duration_days}h
                       </span>
                     </div>
-                    <span className="text-xs font-medium text-forest">
+                    <span className="text-xs font-medium text-forest-text">
                       {openCount > 0 ? `${openCount} batch buka` : 'Lihat jadwal'}
                     </span>
                   </div>
@@ -120,7 +119,7 @@ export default function JadwalPage() {
 
           {/* ── Main: Batch list timeline ───────── */}
           <div className="flex flex-col gap-6">
-            <p className="text-xs text-text-muted uppercase tracking-widest px-0.5">
+            <p className="text-xs text-text-muted uppercase tracking-widest px-1">
               {allBatches.length} Jadwal Tersedia
             </p>
 
@@ -135,7 +134,7 @@ export default function JadwalPage() {
                 return (
                   <div
                     key={batch.id}
-                    className="bg-bg-card border border-border rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-200"
+                    className="bg-bg-card rounded-2xl overflow-hidden hover:bg-bg-section transition-all duration-200"
                   >
                     <div className="flex flex-col sm:flex-row">
 
@@ -156,22 +155,19 @@ export default function JadwalPage() {
                       {/* Content */}
                       <div className="flex-1 p-5 flex flex-col justify-between gap-4">
                         <div>
-                          {/* Badges */}
                           <div className="flex flex-wrap items-center gap-2 mb-2">
-                            <span className={clsx('text-[10px] font-semibold px-2 py-0.5 rounded-full', st.color)}>
+                            <span className={clsx('text-[10px] font-semibold px-2 py-1 rounded-full', st.color)}>
                               {st.label}
                             </span>
-                            <span className={clsx('text-[10px] font-semibold px-2 py-0.5 rounded-full', diff.color)}>
+                            <span className={clsx('text-[10px] font-semibold px-2 py-1 rounded-full', diff.color)}>
                               {diff.label}
                             </span>
                           </div>
 
-                          {/* Title */}
                           <h3 className="text-base font-bold text-text-primary mb-1">
                             {trip.name} — {batch.label}
                           </h3>
 
-                          {/* Meta */}
                           <div className="flex flex-wrap items-center gap-3 text-xs text-text-muted">
                             <span className="flex items-center gap-1">
                               <CalendarDays className="w-3 h-3" />
@@ -217,10 +213,10 @@ export default function JadwalPage() {
                             <Link
                               href={`/jadwal/${trip.slug}`}
                               className={clsx(
-                                'inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200',
+                                'inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200',
                                 isBookable
                                   ? 'bg-white text-bg-section hover:bg-forest hover:text-white'
-                                  : 'bg-bg-section border border-border text-text-muted cursor-not-allowed',
+                                  : 'bg-bg-section text-text-muted cursor-not-allowed',
                               )}
                             >
                               {isBookable ? 'Lihat Detail' : 'Ditutup'}

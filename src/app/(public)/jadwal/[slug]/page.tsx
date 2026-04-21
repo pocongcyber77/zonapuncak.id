@@ -62,7 +62,6 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
           style={{ WebkitUserDrag: 'none' } as React.CSSProperties}
           sizes="100vw"
         />
-        {/* Overlay */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.4) 50%, rgba(0,0,0,0.2) 100%)' }} />
 
         {/* Back */}
@@ -79,29 +78,29 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
         {/* Title block */}
         <div className="absolute bottom-0 left-0 right-0 max-w-[1200px] mx-auto px-6 lg:px-12 pb-8">
           <div className="flex flex-wrap items-center gap-2 mb-3">
-            <span className={clsx('text-xs font-semibold px-2.5 py-1 rounded-full', diff.color)}>
+            <span className={clsx('text-xs font-semibold px-3 py-1 rounded-full', diff.color)}>
               {diff.label}
             </span>
-            <span className={clsx('text-xs font-semibold px-2.5 py-1 rounded-full', statusCfg.color)}>
+            <span className={clsx('text-xs font-semibold px-3 py-1 rounded-full', statusCfg.color)}>
               {statusCfg.label}
             </span>
           </div>
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl uppercase text-white leading-none mb-2"
+            className="text-[40px] sm:text-5xl lg:text-6xl uppercase text-white leading-none mb-2"
             style={{ fontFamily: 'var(--font-hero)' }}
           >
             {trip.name}
           </h1>
           <div className="flex flex-wrap items-center gap-4 text-sm text-text-secondary">
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-2">
               <MapPin className="w-3.5 h-3.5" />
               {trip.location}
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-2">
               <Mountain className="w-3.5 h-3.5" />
               {trip.elevation.toLocaleString('id-ID')} mdpl
             </span>
-            <span className="flex items-center gap-1.5">
+            <span className="flex items-center gap-2">
               <Clock className="w-3.5 h-3.5" />
               {trip.duration_days} hari
             </span>
@@ -137,7 +136,7 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
 
             {/* Include / Exclude */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-bg-card border border-border rounded-2xl p-5">
+              <div className="bg-bg-card rounded-2xl p-5">
                 <h3 className="text-sm font-semibold text-text-primary mb-3">Sudah Termasuk</h3>
                 <ul className="flex flex-col gap-2">
                   {trip.include.map((item) => (
@@ -148,7 +147,7 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
                   ))}
                 </ul>
               </div>
-              <div className="bg-bg-card border border-border rounded-2xl p-5">
+              <div className="bg-bg-card rounded-2xl p-5">
                 <h3 className="text-sm font-semibold text-text-primary mb-3">Tidak Termasuk</h3>
                 <ul className="flex flex-col gap-2">
                   {trip.exclude.map((item) => (
@@ -162,7 +161,7 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
             </div>
 
             {/* Syarat — collapsible */}
-            <div className="bg-bg-card border border-border rounded-2xl overflow-hidden">
+            <div className="bg-bg-card rounded-2xl overflow-hidden">
               <button
                 className="w-full flex items-center justify-between px-5 py-4 text-sm font-semibold text-text-primary hover:bg-white/5 transition-colors duration-150"
                 onClick={() => setShowReqs((v) => !v)}
@@ -174,11 +173,11 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
                 }
               </button>
               {showReqs && (
-                <div className="px-5 pb-5 border-t border-border">
+                <div className="px-5 pb-5">
                   <ul className="flex flex-col gap-2 pt-4">
                     {trip.requirements.map((req) => (
                       <li key={req} className="flex items-start gap-2 text-sm text-text-secondary">
-                        <span className="w-1.5 h-1.5 rounded-full bg-forest mt-1.5 shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-forest mt-2 shrink-0" />
                         {req}
                       </li>
                     ))}
@@ -203,18 +202,17 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
                     key={batch.id}
                     onClick={() => setSelectedBatchId(batch.id)}
                     className={clsx(
-                      'w-full text-left bg-bg-card border rounded-2xl p-5 transition-all duration-200',
-                      isSelected ? 'border-forest ring-1 ring-forest/40' : 'border-border hover:border-white/20',
+                      'w-full text-left rounded-2xl p-5 transition-all duration-200',
+                      isSelected ? 'bg-forest/20' : 'bg-bg-card hover:bg-bg-section',
                     )}
                   >
                     <div className="flex items-start justify-between gap-2 mb-3">
                       <span className="text-sm font-semibold text-text-primary">{batch.label}</span>
-                      <span className={clsx('text-[10px] font-semibold px-2 py-0.5 rounded-full shrink-0', st.color)}>
+                      <span className={clsx('text-[10px] font-semibold px-2 py-1 rounded-full shrink-0', st.color)}>
                         {st.label}
                       </span>
                     </div>
 
-                    {/* Tanggal */}
                     <div className="text-xs text-text-muted mb-3">
                       {formatDate(batch.start_date)} — {formatDate(batch.end_date)}
                     </div>
@@ -239,7 +237,6 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
                       </div>
                     </div>
 
-                    {/* Harga */}
                     <div className="text-base font-bold text-text-primary">
                       {formatPrice(batch.price)}
                       <span className="text-xs font-normal text-text-muted"> /orang</span>
@@ -252,22 +249,22 @@ export default function JadwalSlugPage({ params }: { params: Promise<{ slug: str
               {selectedBatch && selectedBatch.status !== 'full' && selectedBatch.status !== 'closed' ? (
                 <Link
                   href="/coming-soon"
-                  className="flex items-center justify-center gap-2 w-full bg-white text-bg-section font-semibold py-3.5 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200 active:scale-95"
+                  className="flex items-center justify-center gap-2 w-full bg-white text-bg-section font-semibold py-4 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200 active:scale-95"
                 >
                   Daftar {selectedBatch.label}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
-                <div className="flex items-center justify-center w-full bg-bg-section border border-border text-text-muted font-semibold py-3.5 rounded-full text-sm cursor-not-allowed">
+                <div className="flex items-center justify-center w-full bg-bg-section text-text-muted font-semibold py-4 rounded-full text-sm cursor-not-allowed">
                   Pendaftaran Ditutup
                 </div>
               )}
 
               {/* Meeting point */}
-              <div className="bg-bg-card border border-border rounded-2xl p-4 flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-forest mt-0.5 shrink-0" />
+              <div className="bg-bg-card rounded-2xl p-4 flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-forest-text mt-1 shrink-0" />
                 <div>
-                  <p className="text-xs text-text-muted mb-0.5">Meeting Point</p>
+                  <p className="text-xs text-text-muted mb-1">Meeting Point</p>
                   <p className="text-sm text-text-primary font-medium">{trip.meeting_point}</p>
                 </div>
               </div>

@@ -10,7 +10,6 @@ function getDaysInMonth(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate()
 }
 function getFirstDayOfWeek(year: number, month: number) {
-  // 0=Sun … 6=Sat; geser ke Mon-first (0=Mon … 6=Sun)
   return (new Date(year, month, 1).getDay() + 6) % 7
 }
 function toYMD(date: Date) {
@@ -24,11 +23,11 @@ function fmt(date: string) {
 
 /* ── Agenda type config ──────────────────────────── */
 const AGENDA_CFG: Record<AgendaType, { label: string; dot: string; badge: string; icon: string }> = {
-  briefing:  { label: 'Briefing',  dot: 'bg-gold',    badge: 'bg-gold/15 text-gold',          icon: '🗣️' },
-  departure: { label: 'Berangkat', dot: 'bg-forest',  badge: 'bg-forest/20 text-white',       icon: '🚌' },
-  summit:    { label: 'Summit',    dot: 'bg-white',   badge: 'bg-white/10 text-white',        icon: '🏔️' },
-  descent:   { label: 'Turun',     dot: 'bg-border',  badge: 'bg-bg-section text-text-muted', icon: '🪂' },
-  finish:    { label: 'Selesai',   dot: 'bg-success', badge: 'bg-success/15 text-success',    icon: '🎉' },
+  briefing:  { label: 'Briefing',  dot: 'bg-gold',    badge: 'bg-gold/15 text-gold',              icon: '🗣️' },
+  departure: { label: 'Berangkat', dot: 'bg-forest',  badge: 'bg-forest/20 text-white',           icon: '🚌' },
+  summit:    { label: 'Summit',    dot: 'bg-white',   badge: 'bg-white/10 text-white',            icon: '🏔️' },
+  descent:   { label: 'Turun',     dot: 'bg-border',  badge: 'bg-bg-section text-text-muted',     icon: '🪂' },
+  finish:    { label: 'Selesai',   dot: 'bg-success', badge: 'bg-success/15 text-success',        icon: '🎉' },
   info:      { label: 'Info',      dot: 'bg-border',  badge: 'bg-bg-section text-text-secondary', icon: 'ℹ️' },
 }
 
@@ -40,13 +39,11 @@ interface TripCalendarProps {
 }
 
 export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }: TripCalendarProps) {
-  /* All agendas from all batches */
   const allAgendas = useMemo<AgendaItem[]>(
     () => batches.flatMap((b) => b.agendas),
     [batches],
   )
 
-  /* Group agendas: date → AgendaItem[] */
   const agendaMap = useMemo(() => {
     const map: Record<string, AgendaItem[]> = {}
     for (const a of allAgendas) {
@@ -56,12 +53,10 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
     return map
   }, [allAgendas])
 
-  /* Calendar state */
   const today = new Date()
   const [viewYear, setViewYear]   = useState(today.getFullYear())
   const [viewMonth, setViewMonth] = useState(today.getMonth())
   const [selectedDate, setSelectedDate] = useState<string | null>(() => {
-    // default: first date that has agenda
     const sorted = Object.keys(agendaMap).sort()
     return sorted[0] ?? toYMD(today)
   })
@@ -83,7 +78,6 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
 
   const selectedAgendas = selectedDate ? (agendaMap[selectedDate] ?? []) : []
 
-  /* Cells: leading blanks + days */
   const cells: (number | null)[] = [
     ...Array(firstDOW).fill(null),
     ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
@@ -93,13 +87,13 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
     <div className="flex flex-col md:flex-row gap-4">
 
       {/* ── Calendar grid ────────────────────────── */}
-      <div className="bg-bg-card border border-border rounded-2xl p-5 shrink-0 w-full md:w-[320px]">
+      <div className="bg-bg-card rounded-2xl p-5 shrink-0 w-full md:w-[320px]">
 
         {/* Month nav */}
         <div className="flex items-center justify-between mb-4">
           <button
             onClick={prevMonth}
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-colors duration-150"
+            className="w-11 h-11 flex items-center justify-center rounded-md text-text-muted hover:text-text-primary hover:bg-white/5 transition-colors duration-150"
             aria-label="Bulan sebelumnya"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -109,7 +103,7 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
           </span>
           <button
             onClick={nextMonth}
-            className="w-8 h-8 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-white/5 transition-colors duration-150"
+            className="w-11 h-11 flex items-center justify-center rounded-md text-text-muted hover:text-text-primary hover:bg-white/5 transition-colors duration-150"
             aria-label="Bulan berikutnya"
           >
             <ChevronRight className="w-4 h-4" />
@@ -126,7 +120,7 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
         </div>
 
         {/* Day cells */}
-        <div className="grid grid-cols-7 gap-y-0.5">
+        <div className="grid grid-cols-7 gap-y-1">
           {cells.map((day, idx) => {
             if (!day) return <div key={`blank-${idx}`} />
 
@@ -136,7 +130,6 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
             const isSelected = dateStr === selectedDate
             const isToday = dateStr === todayStr
 
-            /* Determine if this date belongs to an active batch range */
             const inRange = batches.some(
               (b) => dateStr >= b.start_date && dateStr <= b.end_date,
             )
@@ -146,11 +139,11 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
                 key={dateStr}
                 onClick={() => setSelectedDate(dateStr)}
                 className={clsx(
-                  'relative flex flex-col items-center justify-center rounded-xl py-1.5 text-sm transition-all duration-150',
+                  'relative flex flex-col items-center justify-center rounded-lg min-h-[44px] text-sm transition-all duration-150',
                   isSelected
                     ? 'bg-forest text-white font-semibold'
                     : isToday
-                      ? 'border border-forest/60 text-white font-medium'
+                      ? 'bg-forest/20 text-white font-medium'
                       : inRange
                         ? 'text-text-secondary hover:bg-white/10'
                         : 'text-text-muted hover:bg-white/5',
@@ -159,9 +152,8 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
                 aria-pressed={isSelected}
               >
                 <span className="leading-none">{day}</span>
-                {/* Dot indicators */}
                 {hasAgenda && (
-                  <div className="flex gap-0.5 mt-1">
+                  <div className="flex gap-1 mt-1">
                     {agendas.slice(0, 3).map((a) => (
                       <span
                         key={a.id}
@@ -179,7 +171,7 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
         </div>
 
         {/* Legend */}
-        <div className="mt-4 pt-4 border-t border-border flex flex-wrap gap-x-3 gap-y-1.5">
+        <div className="mt-4 pt-4 flex flex-wrap gap-x-3 gap-y-1.5">
           {(Object.keys(AGENDA_CFG) as AgendaType[]).map((type) => {
             const cfg = AGENDA_CFG[type]
             const hasType = allAgendas.some(a => a.type === type)
@@ -196,7 +188,6 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
 
       {/* ── Agenda panel ─────────────────────────── */}
       <div className="flex-1 flex flex-col gap-3">
-        {/* Header tanggal terpilih */}
         <div className="flex items-center justify-between px-1">
           <h3 className="text-sm font-semibold text-text-secondary">
             {selectedDate ? fmt(selectedDate) : 'Pilih tanggal'}
@@ -209,8 +200,8 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
         </div>
 
         {selectedAgendas.length === 0 ? (
-          <div className="flex-1 flex flex-col items-center justify-center bg-bg-card border border-border rounded-2xl py-14 text-center gap-2">
-            <span className="text-3xl opacity-30">📅</span>
+          <div className="flex-1 flex flex-col items-center justify-center bg-bg-card rounded-2xl py-14 text-center gap-2">
+            <span className="text-[32px] opacity-30">📅</span>
             <p className="text-sm text-text-muted">Tidak ada agenda di tanggal ini</p>
             <p className="text-xs text-text-muted/60">Pilih tanggal yang memiliki titik indikator</p>
           </div>
@@ -223,25 +214,22 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
                 return (
                   <div
                     key={agenda.id}
-                    className="bg-bg-card border border-border rounded-2xl p-4 flex gap-3"
+                    className="bg-bg-card rounded-2xl p-4 flex gap-3"
                   >
-                    {/* Icon */}
-                    <div className="w-9 h-9 rounded-xl bg-bg-section flex items-center justify-center shrink-0 text-base">
+                    <div className="w-9 h-9 rounded bg-bg-section flex items-center justify-center shrink-0 text-base">
                       {cfg.icon}
                     </div>
-
-                    {/* Content */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2 mb-1">
-                        <p className="text-sm font-semibold text-text-primary leading-tight">
+                        <p className="text-sm font-semibold text-text-primary leading-normal">
                           {agenda.title}
                         </p>
-                        <span className={clsx('text-[10px] font-semibold px-2 py-0.5 rounded-full whitespace-nowrap shrink-0', cfg.badge)}>
+                        <span className={clsx('text-[10px] font-semibold px-2 py-1 rounded-full whitespace-nowrap shrink-0', cfg.badge)}>
                           {cfg.label}
                         </span>
                       </div>
                       {agenda.time && (
-                        <div className="flex items-center gap-1 mb-1.5">
+                        <div className="flex items-center gap-1 mb-2">
                           <Clock className="w-3 h-3 text-text-muted" />
                           <span className="text-xs text-text-muted">{agenda.time} WIB</span>
                         </div>
@@ -258,10 +246,10 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
           </div>
         )}
 
-        {/* Batch selector — kalau ada lebih dari 1 batch */}
+        {/* Batch selector */}
         {batches.length > 1 && (
-          <div className="mt-2 pt-3 border-t border-border">
-            <p className="text-[11px] text-text-muted uppercase tracking-widest mb-2 px-0.5">
+          <div className="mt-2 pt-3">
+            <p className="text-[11px] text-text-muted uppercase tracking-widest mb-2 px-1">
               Lihat jadwal batch lain
             </p>
             <div className="flex flex-wrap gap-2">
@@ -276,10 +264,10 @@ export default function TripCalendar({ batches, selectedBatchId, onSelectBatch }
                     setViewMonth(d.getMonth())
                   }}
                   className={clsx(
-                    'text-xs px-3 py-1.5 rounded-full border transition-all duration-150',
+                    'text-xs px-3 min-h-[44px] rounded-full transition-all duration-150 flex items-center',
                     selectedBatchId === batch.id
-                      ? 'bg-forest border-forest text-white'
-                      : 'border-border text-text-muted hover:border-white/30 hover:text-text-primary',
+                      ? 'bg-forest text-white'
+                      : 'bg-bg-section text-text-muted hover:text-text-primary',
                   )}
                 >
                   {batch.label}

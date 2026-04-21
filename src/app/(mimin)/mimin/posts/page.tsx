@@ -52,10 +52,10 @@ export default function MiminPostsPage() {
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-text-primary">Artikel / CMS</h1>
-          <p className="text-sm text-text-muted mt-0.5">{posts.filter(p => p.status === 'published').length} terbit · {posts.filter(p => p.status === 'draft').length} draft</p>
+          <p className="text-sm text-text-muted mt-1">{posts.filter(p => p.status === 'published').length} terbit · {posts.filter(p => p.status === 'draft').length} draft</p>
         </div>
         <button onClick={() => { setForm(EMPTY_FORM); setModal('add') }}
-          className="inline-flex items-center gap-2 bg-white text-bg-section font-semibold px-4 py-2.5 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200">
+          className="inline-flex items-center gap-2 bg-white text-bg-section font-semibold px-4 py-3 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200">
           <Plus className="w-4 h-4" /> Tulis Artikel
         </button>
       </div>
@@ -64,12 +64,12 @@ export default function MiminPostsPage() {
         <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
           <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Cari artikel..."
-            className="w-full pl-9 pr-4 py-2.5 bg-bg-card border border-border rounded-xl text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest" />
+            className="w-full pl-9 pr-4 py-3 bg-bg-card border border-border rounded-xl text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest" />
         </div>
         <div className="flex gap-2">
           {([['all', 'Semua'], ['published', 'Terbit'], ['draft', 'Draft']] as [PostStatus | 'all', string][]).map(([val, label]) => (
             <button key={val} onClick={() => setFilter(val)}
-              className={clsx('px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all duration-150',
+              className={clsx('px-4 py-2 rounded-full text-xs font-semibold border transition-all duration-150',
                 filter === val ? 'bg-forest border-forest text-white' : 'border-border text-text-muted hover:border-white/30 hover:text-text-primary')}>
               {label}
             </button>
@@ -81,11 +81,11 @@ export default function MiminPostsPage() {
         <table className="w-full text-sm">
           <thead className="bg-bg-section border-b border-border">
             <tr>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-text-muted uppercase tracking-wide">Judul</th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-text-muted uppercase tracking-wide hidden sm:table-cell">Status</th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-text-muted uppercase tracking-wide hidden lg:table-cell">Views</th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-text-muted uppercase tracking-wide hidden md:table-cell">Tanggal</th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-text-muted uppercase tracking-wide">Aksi</th>
+              <th className="text-left px-5 py-4 text-xs font-semibold text-text-muted uppercase tracking-wide">Judul</th>
+              <th className="text-left px-5 py-4 text-xs font-semibold text-text-muted uppercase tracking-wide hidden sm:table-cell">Status</th>
+              <th className="text-left px-5 py-4 text-xs font-semibold text-text-muted uppercase tracking-wide hidden lg:table-cell">Views</th>
+              <th className="text-left px-5 py-4 text-xs font-semibold text-text-muted uppercase tracking-wide hidden md:table-cell">Tanggal</th>
+              <th className="text-left px-5 py-4 text-xs font-semibold text-text-muted uppercase tracking-wide">Aksi</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -93,17 +93,17 @@ export default function MiminPostsPage() {
               <tr key={p.id} className="hover:bg-white/[0.02] transition-colors">
                 <td className="px-5 py-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-bg-section flex items-center justify-center shrink-0 mt-0.5">
-                      {p.status === 'published' ? <Globe className="w-3.5 h-3.5 text-forest" /> : <FileText className="w-3.5 h-3.5 text-text-muted" />}
+                    <div className="w-7 h-7 rounded-lg bg-bg-section flex items-center justify-center shrink-0 mt-1">
+                      {p.status === 'published' ? <Globe className="w-3.5 h-3.5 text-forest-text" /> : <FileText className="w-3.5 h-3.5 text-text-muted" />}
                     </div>
                     <div>
-                      <p className="font-medium text-text-primary leading-snug">{p.title}</p>
+                      <p className="font-medium text-text-primary leading-normal">{p.title}</p>
                       <p className="text-[11px] text-text-muted">/{p.slug}</p>
                     </div>
                   </div>
                 </td>
                 <td className="px-5 py-4 hidden sm:table-cell">
-                  <span className={clsx('text-[10px] font-semibold px-2.5 py-1 rounded-full', p.status === 'published' ? 'bg-success/15 text-success' : 'bg-border text-text-muted')}>
+                  <span className={clsx('text-[10px] font-semibold px-3 py-1 rounded-full', p.status === 'published' ? 'bg-success/15 text-success' : 'bg-border text-text-muted')}>
                     {p.status === 'published' ? 'Terbit' : 'Draft'}
                   </span>
                 </td>
@@ -111,9 +111,9 @@ export default function MiminPostsPage() {
                 <td className="px-5 py-4 hidden md:table-cell text-xs text-text-muted">{p.date}</td>
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-1">
-                    <button title="Preview" className="p-1.5 rounded-lg text-text-muted hover:text-forest hover:bg-forest/10 transition-colors"><Eye className="w-4 h-4" /></button>
-                    <button onClick={() => openEdit(p.id)} className="p-1.5 rounded-lg text-text-muted hover:text-gold hover:bg-gold/10 transition-colors"><Pencil className="w-4 h-4" /></button>
-                    <button onClick={() => { setDeleteId(p.id); setModal('delete') }} className="p-1.5 rounded-lg text-text-muted hover:text-error hover:bg-error/10 transition-colors"><Trash2 className="w-4 h-4" /></button>
+                    <button title="Preview" className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-text-muted hover:text-forest hover:bg-forest/10 transition-colors"><Eye className="w-4 h-4" /></button>
+                    <button onClick={() => openEdit(p.id)} className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-text-muted hover:text-gold hover:bg-gold/10 transition-colors"><Pencil className="w-4 h-4" /></button>
+                    <button onClick={() => { setDeleteId(p.id); setModal('delete') }} className="min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg text-text-muted hover:text-error hover:bg-error/10 transition-colors"><Trash2 className="w-4 h-4" /></button>
                   </div>
                 </td>
               </tr>
@@ -132,15 +132,15 @@ export default function MiminPostsPage() {
             <div className="px-6 py-5 flex flex-col gap-4">
               {[{ field: 'title', label: 'Judul', placeholder: 'Tips Mendaki Raung...' }, { field: 'slug', label: 'Slug URL', placeholder: 'tips-mendaki-raung' }].map(({ field, label, placeholder }) => (
                 <div key={field}>
-                  <label className="block text-xs font-semibold text-text-secondary mb-1.5">{label}</label>
+                  <label className="block text-xs font-semibold text-text-secondary mb-2">{label}</label>
                   <input value={form[field as keyof typeof form]} onChange={(e) => setForm(f => ({ ...f, [field]: e.target.value }))} placeholder={placeholder}
-                    className="w-full px-3.5 py-2.5 bg-bg-section border border-border rounded-xl text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest" />
+                    className="w-full px-4 py-3 bg-bg-section border border-border rounded-xl text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest" />
                 </div>
               ))}
               <div>
-                <label className="block text-xs font-semibold text-text-secondary mb-1.5">Status</label>
+                <label className="block text-xs font-semibold text-text-secondary mb-2">Status</label>
                 <select value={form.status} onChange={(e) => setForm(f => ({ ...f, status: e.target.value as PostStatus }))}
-                  className="w-full px-3.5 py-2.5 bg-bg-section border border-border rounded-xl text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-forest">
+                  className="w-full px-4 py-3 bg-bg-section border border-border rounded-xl text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-forest">
                   <option value="draft">Draft</option>
                   <option value="published">Terbitkan</option>
                 </select>
@@ -150,8 +150,8 @@ export default function MiminPostsPage() {
               </div>
             </div>
             <div className="flex gap-3 px-6 pb-6">
-              <button onClick={() => setModal(null)} className="flex-1 py-2.5 rounded-full border border-border text-sm text-text-muted transition-all">Batal</button>
-              <button onClick={savePost} className="flex-1 py-2.5 rounded-full bg-white text-bg-section font-semibold text-sm hover:bg-forest hover:text-white transition-all">
+              <button onClick={() => setModal(null)} className="flex-1 py-3 rounded-full border border-border text-sm text-text-muted transition-all">Batal</button>
+              <button onClick={savePost} className="flex-1 py-3 rounded-full bg-white text-bg-section font-semibold text-sm hover:bg-forest hover:text-white transition-all">
                 {modal === 'add' ? 'Simpan' : 'Perbarui'}
               </button>
             </div>
@@ -166,9 +166,9 @@ export default function MiminPostsPage() {
             <p className="text-center font-bold text-text-primary">Hapus Artikel?</p>
             <p className="text-center text-sm text-text-muted">Artikel yang sudah terbit akan dihapus permanen.</p>
             <div className="flex gap-3">
-              <button onClick={() => setModal(null)} className="flex-1 py-2.5 rounded-full border border-border text-sm text-text-muted">Batal</button>
+              <button onClick={() => setModal(null)} className="flex-1 py-3 rounded-full border border-border text-sm text-text-muted">Batal</button>
               <button onClick={() => { setPosts(prev => prev.filter(p => p.id !== deleteId)); setModal(null) }}
-                className="flex-1 py-2.5 rounded-full bg-error text-white font-semibold text-sm">Hapus</button>
+                className="flex-1 py-3 rounded-full bg-error text-white font-semibold text-sm">Hapus</button>
             </div>
           </div>
         </div>

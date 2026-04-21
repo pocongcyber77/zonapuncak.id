@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
   return (
     <div className="w-full max-w-md">
-      <div className="bg-bg-card border border-border rounded-2xl p-8">
+      <div className="bg-bg-card rounded-2xl p-8">
         <h1 className="text-2xl font-bold text-text-primary mb-1">Buat Akun</h1>
         <p className="text-text-muted text-sm mb-6">Bergabung dan mulai petualanganmu</p>
 
@@ -26,7 +26,7 @@ export default function RegisterPage() {
               id="username"
               type="text"
               placeholder="username_kamu"
-              className="w-full px-4 py-2.5 rounded-lg bg-bg-section border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full px-4 py-2.5 rounded-lg bg-bg-section text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest transition-all duration-200 text-sm"
             />
           </div>
           <div>
@@ -37,7 +37,7 @@ export default function RegisterPage() {
               id="email"
               type="email"
               placeholder="email@kamu.com"
-              className="w-full px-4 py-2.5 rounded-lg bg-bg-section border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full px-4 py-2.5 rounded-lg bg-bg-section text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest transition-all duration-200 text-sm"
             />
           </div>
           <div>
@@ -48,17 +48,17 @@ export default function RegisterPage() {
               id="password"
               type="password"
               placeholder="Min. 8 karakter"
-              className="w-full px-4 py-2.5 rounded-lg bg-bg-section border border-border text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest focus:border-transparent transition-all duration-200 text-sm"
+              className="w-full px-4 py-2.5 rounded-lg bg-bg-section text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-forest transition-all duration-200 text-sm"
             />
           </div>
           <Button fullWidth>Daftar Sekarang</Button>
         </form>
 
-        <div className="h-px bg-border my-5" />
+        <div className="h-px bg-white/5 my-5" />
 
         <p className="text-center text-sm text-text-muted">
           Sudah punya akun?{' '}
-          <Link href="/login" className="text-forest hover:text-forest-hover font-semibold transition-colors duration-200">
+          <Link href="/login" className="text-forest-text hover:text-forest-hover font-semibold transition-colors duration-200">
             Masuk
           </Link>
         </p>

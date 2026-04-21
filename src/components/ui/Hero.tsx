@@ -154,13 +154,13 @@ export default function Hero({
                   <div
                     key={a.initials}
                     style={{ backgroundColor: a.bg }}
-                    className="w-9 h-9 rounded-full border-2 border-white/20 flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
                   >
                     {a.initials}
                   </div>
                 ))}
               </div>
-              <p className="text-sm leading-snug text-text-secondary">
+              <p className="text-sm leading-normal text-text-secondary">
                 Dipercaya <span className="text-white font-semibold">150+</span>
                 <br />pendaki Indonesia
               </p>
@@ -181,7 +181,7 @@ export default function Hero({
 
             {/* Description — Bebas Neue */}
             <p
-              className="text-base xs:text-lg leading-relaxed max-w-[480px] text-text-muted tracking-wide"
+              className="text-base xs:text-xl leading-relaxed max-w-[480px] text-text-muted tracking-wide"
               style={{ fontFamily: 'var(--font-hero)', fontWeight: 400 }}
             >
               {description}
@@ -191,7 +191,7 @@ export default function Hero({
             <div>
               <Link
                 href={cta.href}
-                className="inline-flex items-center gap-2 bg-white text-bg-section font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200 active:scale-95"
+                className="inline-flex items-center gap-2 bg-white text-bg-section font-semibold px-7 py-4 rounded-full text-sm hover:bg-forest hover:text-white transition-all duration-200 active:scale-95"
               >
                 {cta.label}
                 <ArrowRight className="w-4 h-4" />
@@ -212,15 +212,24 @@ export default function Hero({
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Tampilkan slide ${i + 1}`}
+            className="min-h-[44px] flex items-center justify-center"
             style={{
-              height: '5px',
-              borderRadius: '3px',
-              backgroundColor:
-                i === current ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.28)',
-              transition: `width ${FADE_DURATION}ms ease, background-color ${FADE_DURATION}ms ease`,
               width: i === current ? '28px' : '6px',
+              transition: `width ${FADE_DURATION}ms ease`,
             }}
-          />
+          >
+            <span
+              style={{
+                display: 'block',
+                height: '5px',
+                width: '100%',
+                borderRadius: '3px',
+                backgroundColor:
+                  i === current ? 'rgba(255,255,255,0.90)' : 'rgba(255,255,255,0.28)',
+                transition: `background-color ${FADE_DURATION}ms ease`,
+              }}
+            />
+          </button>
         ))}
       </div>
 

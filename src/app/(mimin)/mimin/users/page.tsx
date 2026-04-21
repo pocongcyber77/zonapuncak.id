@@ -18,7 +18,7 @@ const INITIAL_USERS = [
   { id: '8', username: 'admin_zona',      email: 'admin@zonapuncak.id', role: 'admin' as Role, status: 'active' as Status, bookings: 0, joined: '1 Jan 2026'  },
 ]
 
-const ROLE_STYLE: Record<Role, string>   = { user: 'bg-border text-text-muted', admin: 'bg-forest/15 text-forest' }
+const ROLE_STYLE: Record<Role, string>   = { user: 'bg-border text-text-muted', admin: 'bg-forest/15 text-forest-text' }
 const STATUS_STYLE: Record<Status, string> = { active: 'bg-success/15 text-success', banned: 'bg-error/15 text-error' }
 
 export default function MiminUsersPage() {
@@ -53,7 +53,7 @@ export default function MiminUsersPage() {
 
       {/* Summary */}
       <div className="grid grid-cols-3 gap-4">
-        {[['Total Users', counts.total, 'bg-border text-text-secondary'], ['Admin', counts.admin, 'bg-forest/15 text-forest'], ['Dibanned', counts.banned, 'bg-error/15 text-error']].map(([label, val, style]) => (
+        {[['Total Users', counts.total, 'bg-border text-text-secondary'], ['Admin', counts.admin, 'bg-forest/15 text-forest-text'], ['Dibanned', counts.banned, 'bg-error/15 text-error']].map(([label, val, style]) => (
           <div key={label as string} className="bg-bg-card border border-border rounded-xl p-4 text-center">
             <p className="text-2xl font-bold text-text-primary">{val}</p>
             <span className={clsx('text-[10px] font-semibold px-2 py-0.5 rounded-full inline-block mt-1', style as string)}>{label as string}</span>
@@ -104,7 +104,7 @@ export default function MiminUsersPage() {
                 <td className="px-5 py-4">
                   <div className="flex items-center gap-3">
                     <div className={clsx('w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0',
-                      u.role === 'admin' ? 'bg-forest/20 text-forest' : 'bg-bg-section text-text-muted')}>
+                      u.role === 'admin' ? 'bg-forest/20 text-forest-text' : 'bg-bg-section text-text-muted')}>
                       {u.username[0].toUpperCase()}
                     </div>
                     <div>
@@ -129,7 +129,7 @@ export default function MiminUsersPage() {
                   <div className="flex items-center gap-1">
                     <button onClick={() => toggleRole(u.id)} title={u.role === 'admin' ? 'Hapus admin' : 'Jadikan admin'}
                       className={clsx('p-1.5 rounded-lg transition-colors', u.role === 'admin'
-                        ? 'text-forest hover:text-text-muted hover:bg-white/5'
+                        ? 'text-forest-text hover:text-text-muted hover:bg-white/5'
                         : 'text-text-muted hover:text-forest hover:bg-forest/10')}>
                       {u.role === 'admin' ? <ShieldOff className="w-4 h-4" /> : <Shield className="w-4 h-4" />}
                     </button>

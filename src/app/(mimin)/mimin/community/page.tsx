@@ -62,7 +62,7 @@ export default function MiminCommunityPage() {
           <div key={post.id} className={clsx('bg-bg-card border rounded-2xl p-5 transition-all',
             post.status === 'removed' ? 'border-error/30 opacity-60' : post.status === 'pinned' ? 'border-gold/30' : 'border-border')}>
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-full bg-forest/20 flex items-center justify-center shrink-0 text-sm font-bold text-forest">
+              <div className="w-9 h-9 rounded-full bg-forest/20 flex items-center justify-center shrink-0 text-sm font-bold text-forest-text">
                 {post.avatar}
               </div>
               <div className="flex-1 min-w-0">

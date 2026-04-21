@@ -16,7 +16,7 @@ const variantClasses: Record<Variant, string> = {
     'bg-white text-[#111111] hover:bg-[#2F5D50] hover:text-white active:scale-95',
   /* transparent + white border */
   outline:
-    'border border-white/40 text-white hover:bg-white/10 active:scale-95',
+    'bg-white/10 text-white hover:bg-white/20 active:scale-95',
   /* subtle */
   ghost:
     'text-[#9CA3AF] hover:text-white hover:bg-white/5 active:scale-95',

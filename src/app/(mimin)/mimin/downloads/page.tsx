@@ -7,7 +7,7 @@ import { clsx } from 'clsx'
 type FileCategory = 'peta' | 'modul' | 'gpx' | 'sertifikat' | 'informasi'
 
 const CATEGORY_CFG: Record<FileCategory, { label: string; icon: React.ElementType; color: string }> = {
-  peta:        { label: 'Peta Pendakian',    icon: Map,       color: 'bg-forest/15 text-forest' },
+  peta:        { label: 'Peta Pendakian',    icon: Map,       color: 'bg-forest/15 text-forest-text' },
   modul:       { label: 'Modul Materi',      icon: BookOpen,  color: 'bg-gold/15 text-gold' },
   gpx:         { label: 'GPX',               icon: Navigation,color: 'bg-success/15 text-success' },
   sertifikat:  { label: 'Sertifikat',        icon: Award,     color: 'bg-border text-text-secondary' },
