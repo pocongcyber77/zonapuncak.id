@@ -7,7 +7,7 @@ import Reveal from '@/components/ui/Reveal'
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/seo'
 
 export const metadata: Metadata = {
-  title: `${SITE_NAME} — Open Trip Gunung Terpercaya`,
+  title: `${SITE_NAME} - Zona Nyamanmu`,
   description: SITE_DESCRIPTION,
   alternates: { canonical: '/' },
 }
@@ -59,17 +59,18 @@ const reasons = [
 ]
 
 const splitImgs = {
-  tall:   'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=500&q=75&auto=format&fit=crop',
-  shortA: 'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=400&q=75&auto=format&fit=crop',
-  shortB: 'https://images.unsplash.com/photo-1519659528534-7fd733a832a0?w=400&q=75&auto=format&fit=crop',
+  tall:   '/kolase-filosofi-1.webp',
+  shortA: '/kolase-filosofi-3.webp',
+  shortB: '/kolase-filosofi-2.webp',
 }
 
 const collageImgs = [
-  'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=70&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1476611338391-6f395a0dd82e?w=300&q=70&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1434394354979-a235cd36269d?w=300&q=70&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=300&q=70&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1570641963303-92ce4845ed4c?w=300&q=70&auto=format&fit=crop',
+  '/image-explore-1.webp',
+  '/image-explore-2.webp',
+  '/image-explore-3.webp',
+  '/image-explore-4.webp',
+  '/image-explore-5.webp',
+  '/image-explore-6.webp',
 ]
 
 const testimonials = [
@@ -357,8 +358,8 @@ export default function HomePage() {
               <div className="relative rounded-xl overflow-hidden">
                 <Image src={collageImgs[2]} alt="Pendakian" fill sizes="10vw" className="object-cover" />
               </div>
-              {collageImgs.slice(2, 5).map((src, i) => (
-                <div key={i} className="relative rounded-xl overflow-hidden">
+              {[collageImgs[5], collageImgs[3], collageImgs[4]].map((src) => (
+                <div key={src} className="relative rounded-xl overflow-hidden">
                   <Image src={src} alt="Gunung Indonesia" fill sizes="10vw" className="object-cover" />
                 </div>
               ))}

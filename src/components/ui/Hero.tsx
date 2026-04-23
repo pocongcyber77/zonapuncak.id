@@ -26,10 +26,10 @@ const FADE_DURATION  = 1600   // 1.6 s crossfade
 const ZOOM_DURATION  = 9000   // 9 s zoom-out (runs past transition → smooth)
 
 const TRUST_AVATARS = [
-  { initials: 'R', bg: '#3D6B5E' },
-  { initials: 'A', bg: '#2A4A6B' },
-  { initials: 'D', bg: '#6B4A2A' },
-]
+  { src: '/pp-hero-1.webp', alt: 'Pendaki alumni Zona Puncak' },
+  { src: '/pp-hero-2.webp', alt: 'Pendaki alumni Zona Puncak' },
+  { src: '/pp-hero-3.webp', alt: 'Pendaki alumni Zona Puncak' },
+] as const
 
 interface HeroProps {
   title?: string
@@ -38,7 +38,7 @@ interface HeroProps {
 }
 
 export default function Hero({
-  title = 'Jelajahi Puncak\nEkstrem Indonesia',
+  title = 'Sahabat Terbaik\nPetualanganmu',
   description = 'Dipandu guide bersertifikat, diorganisir secara profesional demi meraih puncak impianmu dengan aman dan berkesan.',
   cta = { label: 'Gabung Trip', href: '/trip' },
 }: HeroProps) {
@@ -152,11 +152,16 @@ export default function Hero({
               <div className="flex -space-x-2">
                 {TRUST_AVATARS.map((a) => (
                   <div
-                    key={a.initials}
-                    style={{ backgroundColor: a.bg }}
-                    className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
+                    key={a.src}
+                    className="relative w-9 h-9 rounded-full overflow-hidden shrink-0 ring-2 ring-bg-base"
                   >
-                    {a.initials}
+                    <Image
+                      src={a.src}
+                      alt={a.alt}
+                      fill
+                      sizes="36px"
+                      className="object-cover object-center"
+                    />
                   </div>
                 ))}
               </div>
