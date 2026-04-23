@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { X, MessageCircle, Wrench } from 'lucide-react'
 import { SOCIAL_URLS } from '@/components/layout/SocialLinks'
 
-const WA_URL = 'https://wa.me/6281338391364'
+const WA_URL = 'https://wa.me/6281338391634'
 const STORAGE_KEY = 'zp-dev-banner-dismissed'
 
 export default function DevBanner() {
