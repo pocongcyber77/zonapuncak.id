@@ -11,4 +11,4 @@ export const SITE_URL = envUrl
     : `https://${envUrl}`
   : fallbackUrl
 
-export const OG_IMAGE = '/hero.jpg'
+export const OG_IMAGE = '/hero-1.webp'

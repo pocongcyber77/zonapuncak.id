@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { clsx } from 'clsx'
-import { Menu, X, ChevronDown, Map, BookOpen, Info, Navigation, Award, Mountain, CalendarDays } from 'lucide-react'
+import { Menu, X, ChevronDown, Map, BookOpen, Info, Navigation, Award, Mountain, CalendarDays, Smartphone } from 'lucide-react'
 import SocialLinks from '@/components/layout/SocialLinks'
 
 /* ── Nav link groups ─────────────────────────────── */
@@ -35,6 +35,7 @@ const jadwalItems = [
 ]
 
 const downloadItems = [
+  { href: '/download/app', label: 'App', icon: Smartphone, desc: 'Zona Peta untuk Android' },
   { href: '/download/peta-pendakian', label: 'Peta Pendakian', icon: Map, desc: 'Peta jalur & topografi gunung' },
   { href: '/download/modul-materi', label: 'Modul Materi', icon: BookOpen, desc: 'Panduan teknik pendakian' },
   { href: '/download/informasi', label: 'Informasi', icon: Info, desc: 'Info perizinan & regulasi' },
